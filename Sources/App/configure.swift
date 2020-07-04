@@ -1,5 +1,6 @@
 import FluentPostgreSQL
 import Vapor
+import Leaf
 
 /// Called before your application initializes.
 public func configure(_ config: inout Config, _ env: inout Environment, _ services: inout Services) throws {
@@ -42,5 +43,15 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
 
     // Configure migrations
     var migrations = MigrationConfig()
+    migrations.add(model: User.self, database: DatabaseIdentifier<User.Database>.psql)
+    migrations.add(model: Post.self, database: DatabaseIdentifier<Post.Database>.psql)
+    migrations.add(migration: AdminUser.self, database: DatabaseIdentifier<AdminUser.Database>.psql)
     services.register(migrations)
+    
+    var commandConfig = CommandConfig.default()
+    commandConfig.useFluentCommands()
+    services.register(commandConfig)
+    
+    try services.register(LeafProvider())
+    config.prefer(LeafRenderer.self, for: ViewRenderer.self)
 }
