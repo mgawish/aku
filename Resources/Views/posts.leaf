@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    </head>
-    <body>
-    posts
-    </body>
-</html>
-
-
-
-
+#set("content") {
+<h2>Posts</h2>
+<div class="container">
+    <div class="row">
+        #for(post in posts) {
+        <div class='col-md-4' style='border:solid;text-align:center'>#(post.name)</div>
+        }
+    </div>
+</div>
+}
+#embed("base")
