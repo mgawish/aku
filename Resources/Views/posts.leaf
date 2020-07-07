@@ -1,11 +1,10 @@
 #set("content") {
-<h2>Posts</h2>
-<div class="container">
+  <div class="container pt-3">
     <div class="row">
-        #for(post in posts) {
-        <div class='col-md-4' style='border:solid;text-align:center'>#(post.name)</div>
-        }
+      #for(post in posts) {
+        <div class='col-md-4 content' style='border:solid;text-align:center'>#(post.name)</div>
+      }
     </div>
-</div>
+  </div>
 }
 #embed("base")
