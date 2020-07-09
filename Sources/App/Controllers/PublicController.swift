@@ -7,6 +7,7 @@
 
 import Vapor
 import Leaf
+import Crypto
 
 class PublicController: RouteCollection {
     func boot(router: Router) throws {
@@ -23,9 +24,10 @@ class PublicController: RouteCollection {
         router.post(Blog.self, at: "admin", "apps", Blog.parameter, "edit", use: editBlogHandler)
 
         
-        router.get("admin", "users", use: adminUsersViewHandler)
-        
-        //router.put("admin", "posts", "update", Post.parameter, use: upatePostHandler)
+        router.get("admin", "users", "create", use: createUserViewHandler)
+        router.post(UserContext.self, at: "admin", "users", "create", use: createUserHandler)
+        router.get("admin", "users", User.parameter, use: editUserViewHandler)
+        router.post(UserContext.self, at: "admin", "users", User.parameter, "edit", use: editUserHandler)
     }
     
     //MARK:- Public
@@ -38,15 +40,10 @@ class PublicController: RouteCollection {
                                      BlogsContext(blogs: Blog.query(on: req).all()))
     }
     
-    //MARK:- Admin
+    //MARK:- Admin Blogs
     func adminBlogsViewHandler(req: Request) throws -> Future<View> {
         return try req.view().render("adminBlogs",
                                      BlogsContext(blogs: Blog.query(on: req).all()))
-    }
-    
-    func adminUsersViewHandler(req: Request) throws -> Future<View> {
-        return try req.view().render("adminUsers",
-                                     UsersContext(users: User.query(on: req).all()))
     }
     
     func createBlogViewHandler(req: Request) throws -> Future<View> {
@@ -54,14 +51,12 @@ class PublicController: RouteCollection {
     }
     
     func createBlogHandler(req: Request, blog: Blog) throws -> Future<View> {
-        try blog.validate()
         return blog.save(on: req).flatMap(to: View.self, {_ in
             return try self.adminBlogsViewHandler(req: req)
         })
     }
     
     func editBlogViewHandler(req: Request) throws -> Future<View> {
-        //return try req.view().render("adminModifyBlog")
         return try req.parameters.next(Blog.self).flatMap(to: View.self) { blog in
             return try req.view().render("adminModifyBlog", blog)
         }
@@ -80,7 +75,41 @@ class PublicController: RouteCollection {
         })
     }
     
+    //MARK:- Admin Users
+    func adminUsersViewHandler(req: Request) throws -> Future<View> {
+        return try req.view().render("adminUsers",
+                                     UsersContext(users: User.query(on: req).all()))
+    }
     
+    func createUserViewHandler(req: Request) throws -> Future<View> {
+        return try req.view().render("adminModifyUser")
+    }
+    
+    func createUserHandler(req: Request, data: UserContext) throws -> Future<View> {
+        try data.validate()
+        let password = try BCrypt.hash(data.password)
+        let user = User(name: data.name , password: password)
+        return user.save(on: req).flatMap(to: View.self, {_ in
+            return try self.adminUsersViewHandler(req: req)
+        })
+    }
+    
+    func editUserViewHandler(req: Request) throws -> Future<View> {
+        return try req.parameters.next(User.self).flatMap(to: View.self) { user in
+            return try req.view().render("adminModifyUser", user)
+        }
+    }
+    
+    func editUserHandler(req: Request, data: UserContext) throws -> Future<View> {
+        try data.validate()
+        return try req.parameters.next(User.self).flatMap(to: View.self, { user in
+            user.name = data.name
+            user.password = try BCrypt.hash(data.password)
+            return user.save(on: req).flatMap(to: View.self, { _ in
+                return try self.adminUsersViewHandler(req: req)
+            })
+        })
+    }
 }
 
 struct BlogsContext: Encodable {
@@ -89,4 +118,31 @@ struct BlogsContext: Encodable {
 
 struct UsersContext: Encodable {
     let users: Future<[User]>
+}
+
+struct UserContext: Content, Validatable, Reflectable {
+    let name: String
+    let password: String
+    let confirmPassword: String
+    
+    static func validations() throws -> Validations<UserContext> {
+        var validations = Validations(UserContext.self)
+        try validations.add(\.name, .count(3...))
+        try validations.add(\.password, .count(3...))
+        validations.add("confirm password", { context in
+            if context.password != context.confirmPassword {
+                throw BasicValidationError("Passwords don’t match")
+            }
+        })
+        return validations
+    }
+}
+
+struct BlogContext: Content {
+    var id: UUID?
+    let name: String
+    let content: String
+    let slug: String
+    let imageUrl: String
+    let error: String?
 }
