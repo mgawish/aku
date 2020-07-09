@@ -1,0 +1,19 @@
+#set("content") {
+  <div class="container bg-white">
+      <table class='table table-bordered table-hover'>
+        <thead class='thead-light'>
+          <th>Name</th>
+          <th>Slug</th>
+        </thead>
+        <tbody>
+          #for(user in users) {
+            <tr>
+              <td><a href="#">#(user.name)</td>
+              <td>#(post.slug)</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+}
+#embed("adminBase")

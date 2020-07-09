@@ -15,6 +15,7 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     // Register middleware
     var middlewares = MiddlewareConfig()
     middlewares.use(ErrorMiddleware.self)
+    middlewares.use(FileMiddleware.self)
     services.register(middlewares)
 
     // Configure DB
@@ -44,7 +45,7 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     // Configure migrations
     var migrations = MigrationConfig()
     migrations.add(model: User.self, database: DatabaseIdentifier<User.Database>.psql)
-    migrations.add(model: Post.self, database: DatabaseIdentifier<Post.Database>.psql)
+    migrations.add(model: Blog.self, database: DatabaseIdentifier<Blog.Database>.psql)
     migrations.add(migration: AdminUser.self, database: DatabaseIdentifier<AdminUser.Database>.psql)
     services.register(migrations)
     

@@ -1,0 +1,10 @@
+#set("content") {
+  <div class="container bg-white">
+    <div class="row">
+      #for(blog in blogs) {
+        <div class='col-md-4 content cool' style='border:solid;text-align:center'>#(blog.name)</div>
+      }
+    </div>
+  </div>
+}
+#embed("base")
