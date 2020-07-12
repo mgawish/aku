@@ -19,7 +19,7 @@ class PublicController: RouteCollection {
         router.get("admin", "users", use: adminUsersViewHandler)
 
         router.get("admin", "apps", "create", use: createBlogViewHandler)
-        router.post(Blog.self, at: "admin", "apps", "create", use: createBlogHandler)
+        router.post(BlogContext.self, at: "admin", "apps", "create", use: createBlogHandler)
         router.get("admin", "apps", Blog.parameter, use: editBlogViewHandler)
         router.post(Blog.self, at: "admin", "apps", Blog.parameter, "edit", use: editBlogHandler)
 
@@ -32,8 +32,9 @@ class PublicController: RouteCollection {
     
     //MARK:- Public
     func indexViewHandler(req: Request) throws -> Future<View> {
+        let blogs = Blog.query(on: req).sort(\.order).all()
         return try req.view().render("index",
-                                     BlogsContext(blogs: Blog.query(on: req).all()))
+                                     BlogsContext(blogs: blogs))
     }
     
     func blogsViewHandler(req: Request) throws -> Future<View> {
@@ -51,7 +52,9 @@ class PublicController: RouteCollection {
         return try req.view().render("adminModifyBlog")
     }
     
-    func createBlogHandler(req: Request, blog: Blog) throws -> Future<View> {
+    func createBlogHandler(req: Request, data: BlogContext) throws -> Future<View> {
+        let blog = Blog(name: data.name,
+                        order: Int(data.order) ?? 0)
         return blog.save(on: req).flatMap(to: View.self, {_ in
             return try self.adminBlogsViewHandler(req: req)
         })
@@ -145,5 +148,6 @@ struct BlogContext: Content {
     let content: String
     let slug: String
     let imageUrl: String
+    let order: String
     let error: String?
 }
