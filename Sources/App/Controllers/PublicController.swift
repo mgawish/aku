@@ -32,7 +32,8 @@ class PublicController: RouteCollection {
     
     //MARK:- Public
     func indexViewHandler(req: Request) throws -> Future<View> {
-        return try req.view().render("index")
+        return try req.view().render("index",
+                                     BlogsContext(blogs: Blog.query(on: req).all()))
     }
     
     func blogsViewHandler(req: Request) throws -> Future<View> {
