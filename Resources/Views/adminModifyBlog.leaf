@@ -1,0 +1,48 @@
+#set("content") {
+  <div class="container bg-white">
+    <form method='post'
+    style='padding:16px'
+    class="container"
+    id='createPostForm'>
+      <div class='form-group row'>
+        <div class="col-sm-6">
+          <label for='name'>Post Name</label>
+          <input type='text' class='form-control' id='name' name='name' value=#(name)>
+        </div>
+        <div class="col-sm-6">
+          <label for='slug'>Slug:</label>
+          <input type='text' class='form-control' id='slug' name='slug' aria-describedby='slugHelp' value=#(slug)>
+          <small id="emailHelp" class="form-text text-muted">Please use a unique slug with no spaces</small>
+        </div>
+      </div>
+      <div class='form-group row'>
+        <div class="col-sm-6">
+          <label for='imageUrl'>Image Url:</label>
+          <input type='url' class='form-control' id='imageUrl' name='imageUrl' value=#(imageUrl)>
+        </div>
+        <div class="col-sm-6">
+          <label for='order'>Order:</label>
+          <input type='number' class='form-control' id='order' name='order' value=#(order)>
+        </div>
+      </div>
+      <div class='form-group'>
+        <label for='content'>Content</label>
+        <br/>
+        <textarea name="content" id='content' form="createPostForm"></textarea>
+      </div>
+      <div class='form-group'>
+         <label for='isActive'>Is Active:</label>
+         <input type='checkbox' class='form-control' id='isActive' name='isActive' #(isActive)>
+       </div>
+       <button type='submit' class='btn btn-primary' formaction="#if(id){/admin/apps/#(id)/edit} else{/admin/apps/create}">
+         #if(id){Update} else{Create}
+       </button>
+       #if(id) {
+         <button type="submit" class='btn btn-danger' formaction="/admin/apps/#(id)/delete">
+           Delete
+         </button>
+       }
+     </form>
+  </div>
+}
+#embed("adminBase")

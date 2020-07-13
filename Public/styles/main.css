@@ -1,0 +1,30 @@
+.container {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.sm-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 15px;
+}
+
+.profile-pic {
+  float: left;
+  margin-right: 15px;
+  margin-left: 15px;
+  max-height: 250px;
+}
+
+textarea {
+  width: 100%;
+}
+
+.card a, a:hover{
+  color: inherit;
+  text-decoration: none;
+}
+
+.headerImage {
+  height: 100px;
+}

@@ -11,8 +11,8 @@ import Crypto
 
 final class User: Codable {
     var id: UUID?
-    let name: String
-    let password: String
+    var name: String
+    var password: String
     
     init(name: String, password: String) {
         self.name = name
@@ -23,6 +23,7 @@ final class User: Codable {
 extension User: PostgreSQLUUIDModel {}
 extension User: Content {}
 extension User: Migration {}
+extension User: Parameter {}
 
 class AdminUser: Migration {
     static func prepare(on conn: PostgreSQLConnection) -> EventLoopFuture<Void> {

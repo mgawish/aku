@@ -1,10 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    </head>
-    <body>
-    index
-    </body>
-</html>
+#set("content") {
+  <div class="container">
+    <div class="row">
+      <img src="images/me.jpg" class="img-thumbnail rounded profile-pic"/>
+      <div>
+        <h3>Mohamed Gawish</h3>
+        <h4>iOS/Android developer</h4>
+        <h6>
+          <img class="sm-icon" src="images/linkedin.svg">
+          <a href="https://bit.ly/325eWEM">https://bit.ly/325eWEM</a>
+        </h6>
+        <h6>
+          <img class="sm-icon" src="images/github.svg">
+          <a href="https://github.com/mgawish">https://github.com/mgawish</a>
+        </h6>
+      </div>
+    </div>
+    <br/>
+    <div class="row container">
+      <p>
+        I started my career building educational apps for kids at Appy Kids. My primary role was developing cross platform apps using Cocos-2d (JS) framework. I also heavy user research and the gamification of pedagogical concepts to make sure children are learning while having fun.
+      </p>
+      <p>
+        I then moved to tajawal, where I was working as an iOS developer in an Agile team.
+      </p>
+      <p>
+        I eventually moved to Eat App, as a Product Manager. I introduced Agile and Scrum to improve productivity and was in charge of planning and feature prioritization based user testing and data insights.
+      </p>
+    </div>
+    <div class="row">
+      #for(blog in blogs) {
+        <div class='col-md-3 content'>
+          <div class="card card text-center">
+            <a href="/apps/#(blog.id)">
+              <img class="card-img-top" src=#(blog.imageUrl) >
+              <div class="card-body">
+                <h5>#(blog.name)</h3>
+              </div>
+            </a>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+}
+#embed("base")

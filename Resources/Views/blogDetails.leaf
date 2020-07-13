@@ -1,0 +1,10 @@
+#set("content") {
+  <div class="container">
+      <img src="#(imageUrl)" class="headerImage"/>
+      <br/>
+      <br/>      
+      <h2>#(name)</h2>
+      <p>#(content)</p>
+  </div>
+}
+#embed("base")

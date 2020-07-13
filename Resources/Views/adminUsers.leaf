@@ -1,0 +1,22 @@
+#set("content") {
+  <div class="container bg-white">
+    <p>
+      <a href="/admin/users/create">
+        <button class='btn btn-primary'>Create New</button>
+      </a>
+    </p>
+    <table class='table table-bordered table-hover'>
+      <thead class='thead-light'>
+        <th>Name</th>
+      </thead>
+      <tbody>
+        #for(user in users) {
+          <tr>
+            <td><a href="/admin/users/#(user.id)">#(user.name)</a></td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}
+#embed("adminBase")
