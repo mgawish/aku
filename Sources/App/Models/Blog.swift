@@ -15,15 +15,16 @@ final class Blog: Codable {
     //let userId: User.ID?
     var slug: String
     var imageUrl: String
-    let order: Int
-    //let isActive: Bool?
+    var order: Int
+    var isActive: Bool
     
-    init(name: String, content: String = "", slug: String = "", imageUrl: String = "", order: Int) {
+    init(name: String, content: String, slug: String, imageUrl: String, order: Int, isActive: Bool) {
         self.name = name
         self.content = content
         self.slug = slug
         self.imageUrl = imageUrl
         self.order = order
+        self.isActive = isActive
     }
 }
 

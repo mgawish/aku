@@ -4,17 +4,34 @@
       <img src="images/me.jpg" class="img-thumbnail rounded profile-pic"/>
       <div>
         <h3>Mohamed Gawish</h3>
-        <h6>I am a senior iOS/Android developer</h6>
-        <h6><img class="sm-icon" src="images/linkedin.svg"><a>https://bit.ly/325eWEM</a></h6>
-        <h6><img class="sm-icon" src="images/github.svg"><a>https://github.com/mgawish</a></h6>
+        <h4>iOS/Android developer</h4>
+        <h6>
+          <img class="sm-icon" src="images/linkedin.svg">
+          <a href="https://bit.ly/325eWEM">https://bit.ly/325eWEM</a>
+        </h6>
+        <h6>
+          <img class="sm-icon" src="images/github.svg">
+          <a href="https://github.com/mgawish">https://github.com/mgawish</a>
+        </h6>
       </div>
     </div>
     <br/>
+    <div class="row container">
+      <p>
+        I started my career building educational apps for kids at Appy Kids. My primary role was developing cross platform apps using Cocos-2d (JS) framework. I also heavy user research and the gamification of pedagogical concepts to make sure children are learning while having fun.
+      </p>
+      <p>
+        I then moved to tajawal, where I was working as an iOS developer in an Agile team.
+      </p>
+      <p>
+        I eventually moved to Eat App, as a Product Manager. I introduced Agile and Scrum to improve productivity and was in charge of planning and feature prioritization based user testing and data insights.
+      </p>
+    </div>
     <div class="row">
       #for(blog in blogs) {
         <div class='col-md-3 content'>
           <div class="card card text-center">
-            <img class="card-img-top" src="https://image.flaticon.com/icons/svg/1515/1515982.svg">
+            <img class="card-img-top" src=#(blog.imageUrl) >
             <div class="card-body">
               <h5>#(blog.name)</h3>
             </div>

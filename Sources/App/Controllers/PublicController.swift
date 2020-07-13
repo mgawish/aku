@@ -8,6 +8,7 @@
 import Vapor
 import Leaf
 import Crypto
+import Fluent
 
 class PublicController: RouteCollection {
     func boot(router: Router) throws {
@@ -21,8 +22,8 @@ class PublicController: RouteCollection {
         router.get("admin", "apps", "create", use: createBlogViewHandler)
         router.post(BlogContext.self, at: "admin", "apps", "create", use: createBlogHandler)
         router.get("admin", "apps", Blog.parameter, use: editBlogViewHandler)
-        router.post(Blog.self, at: "admin", "apps", Blog.parameter, "edit", use: editBlogHandler)
-
+        router.post(BlogContext.self, at: "admin", "apps", Blog.parameter, "edit", use: editBlogHandler)
+        router.post( "admin", "apps", Blog.parameter, "delete", use: deleteBlogHandler)
         
         router.get("admin", "users", "create", use: createUserViewHandler)
         router.post(UserContext.self, at: "admin", "users", "create", use: createUserHandler)
@@ -32,7 +33,11 @@ class PublicController: RouteCollection {
     
     //MARK:- Public
     func indexViewHandler(req: Request) throws -> Future<View> {
-        let blogs = Blog.query(on: req).sort(\.order).all()
+        let blogs = Blog
+            .query(on: req)
+            .filter(\.isActive == true)
+            .sort(\.order)
+            .all()
         return try req.view().render("index",
                                      BlogsContext(blogs: blogs))
     }
@@ -54,7 +59,11 @@ class PublicController: RouteCollection {
     
     func createBlogHandler(req: Request, data: BlogContext) throws -> Future<View> {
         let blog = Blog(name: data.name,
-                        order: Int(data.order) ?? 0)
+                        content: data.content,
+                        slug: data.slug,
+                        imageUrl: data.imageUrl,
+                        order: Int(data.order) ?? 0,
+                        isActive: data.isActive == "on")
         return blog.save(on: req).flatMap(to: View.self, {_ in
             return try self.adminBlogsViewHandler(req: req)
         })
@@ -62,20 +71,37 @@ class PublicController: RouteCollection {
     
     func editBlogViewHandler(req: Request) throws -> Future<View> {
         return try req.parameters.next(Blog.self).flatMap(to: View.self) { blog in
-            return try req.view().render("adminModifyBlog", blog)
+            let context = BlogContext(id: blog.id,
+                                      name: blog.name,
+                                      content: blog.content,
+                                      slug: blog.slug,
+                                      imageUrl: blog.imageUrl,
+                                      order: String(blog.order),
+                                      isActive: blog.isActive ? "on" : "")
+            return try req.view().render("adminModifyBlog", context)
         }
     }
     
-    func editBlogHandler(req: Request, data: Blog) throws -> Future<View> {
+    func editBlogHandler(req: Request, data: BlogContext) throws -> Future<View> {
         try data.validate()
         return try req.parameters.next(Blog.self).flatMap(to: View.self, { blog in
             blog.name = data.name
-            blog.slug = data.slug
             blog.content = data.content
+            blog.slug = data.slug
             blog.imageUrl = data.imageUrl
+            blog.order = Int(data.order) ?? 0
+            blog.content = data.content
+            blog.isActive = data.isActive == "on"
+            
             return blog.save(on: req).flatMap(to: View.self, { _ in
                 return try self.adminBlogsViewHandler(req: req)
             })
+        })
+    }
+    
+    func deleteBlogHandler(req: Request) throws -> Future<View> {
+        return try req.parameters.next(Blog.self).delete(on: req).flatMap(to: View.self, { blog in
+            return try self.adminBlogsViewHandler(req: req)
         })
     }
     
@@ -114,6 +140,8 @@ class PublicController: RouteCollection {
             })
         })
     }
+    
+    
 }
 
 struct BlogsContext: Encodable {
@@ -142,12 +170,20 @@ struct UserContext: Content, Validatable, Reflectable {
     }
 }
 
-struct BlogContext: Content {
+struct BlogContext: Content, Validatable, Reflectable {
     var id: UUID?
     let name: String
     let content: String
     let slug: String
     let imageUrl: String
     let order: String
-    let error: String?
+    let isActive: String?
+    let error: String? = nil
+    
+    static func validations() throws -> Validations<BlogContext> {
+        var validations = Validations(BlogContext.self)
+        try validations.add(\.name, .count(3...))
+        try validations.add(\.slug, .count(3...))
+        return validations
+    }
 }
