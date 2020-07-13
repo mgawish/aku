@@ -31,10 +31,12 @@
       #for(blog in blogs) {
         <div class='col-md-3 content'>
           <div class="card card text-center">
-            <img class="card-img-top" src=#(blog.imageUrl) >
-            <div class="card-body">
-              <h5>#(blog.name)</h3>
-            </div>
+            <a href="/apps/#(blog.id)">
+              <img class="card-img-top" src=#(blog.imageUrl) >
+              <div class="card-body">
+                <h5>#(blog.name)</h3>
+              </div>
+            </a>
           </div>
         </div>
       }

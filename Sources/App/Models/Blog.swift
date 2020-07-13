@@ -26,6 +26,15 @@ final class Blog: Codable {
         self.order = order
         self.isActive = isActive
     }
+    
+    func convertToContext() -> BlogContext {
+        return BlogContext(name: self.name,
+                           content: self.content,
+                           slug: self.slug,
+                           imageUrl: self.imageUrl,
+                           order: String(self.order),
+                           isActive: self.isActive ? "on" : "")
+    }
 }
 
 extension Blog: PostgreSQLUUIDModel {}

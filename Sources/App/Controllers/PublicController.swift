@@ -14,6 +14,7 @@ class PublicController: RouteCollection {
     func boot(router: Router) throws {
         router.get(use: indexViewHandler)
         router.get("apps", use: blogsViewHandler)
+        router.get("apps", Blog.parameter, use: blogDetailsViewHanlder)
         
         router.get("admin", use: adminBlogsViewHandler)
         router.get("admin", "apps", use: adminBlogsViewHandler)
@@ -45,6 +46,12 @@ class PublicController: RouteCollection {
     func blogsViewHandler(req: Request) throws -> Future<View> {
         return try req.view().render("blogs",
                                      BlogsContext(blogs: Blog.query(on: req).all()))
+    }
+    
+    func blogDetailsViewHanlder(req: Request) throws -> Future<View> {
+        return try req.parameters.next(Blog.self).flatMap(to: View.self) { blog in
+            return try req.view().render("blogDetails", blog.convertToContext())
+        }
     }
     
     //MARK:- Admin Blogs
