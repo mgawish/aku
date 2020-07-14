@@ -1,6 +1,7 @@
 import FluentPostgreSQL
 import Vapor
 import Leaf
+import Authentication
 
 /// Called before your application initializes.
 public func configure(_ config: inout Config, _ env: inout Environment, _ services: inout Services) throws {
@@ -16,6 +17,7 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     var middlewares = MiddlewareConfig()
     middlewares.use(ErrorMiddleware.self)
     middlewares.use(FileMiddleware.self)
+    middlewares.use(SessionsMiddleware.self)
     services.register(middlewares)
 
     // Configure DB
@@ -55,4 +57,7 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     
     try services.register(LeafProvider())
     config.prefer(LeafRenderer.self, for: ViewRenderer.self)
+    
+    try services.register(AuthenticationProvider())
+    config.prefer(MemoryKeyedCache.self, for: KeyedCache.self)
 }
