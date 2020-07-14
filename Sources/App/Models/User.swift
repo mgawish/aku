@@ -8,6 +8,7 @@
 import Vapor
 import FluentPostgreSQL
 import Crypto
+import Authentication
 
 final class User: Codable {
     var id: UUID?
@@ -20,6 +21,17 @@ final class User: Codable {
     }
 }
 
+extension User: PasswordAuthenticatable {
+    static var usernameKey: UsernameKey {
+        return \.name
+    }
+    
+    static var passwordKey: PasswordKey {
+        return \.password
+    }
+}
+
+extension User: SessionAuthenticatable {}
 extension User: PostgreSQLUUIDModel {}
 extension User: Content {}
 extension User: Migration {}

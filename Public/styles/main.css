@@ -28,3 +28,7 @@ textarea {
 .headerImage {
   height: 100px;
 }
+
+.small-form {
+  max-width: 400px;
+}
