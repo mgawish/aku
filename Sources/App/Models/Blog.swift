@@ -28,12 +28,13 @@ final class Blog: Codable {
     }
     
     func convertToContext() -> BlogContext {
-        return BlogContext(name: self.name,
+        return BlogContext(id: self.id,
+                           name: self.name,
                            content: self.content,
                            slug: self.slug,
                            imageUrl: self.imageUrl,
                            order: String(self.order),
-                           isActive: self.isActive ? "on" : "")
+                           isActive: self.isActive ? "checked" : "")
     }
 }
 
