@@ -1,4 +1,11 @@
 #set("content") {
+  #if(error) {
+    <div class="alert alert-danger" role="alert">
+      Please fix the errors below:
+      <br />
+      #(error)
+    </div>
+  }
   <div class="container bg-white">
     <form method='post'
     style='padding:16px'

@@ -4,15 +4,15 @@
       <img src="images/me.jpg" class="img-thumbnail rounded profile-pic"/>
       <div>
         <h3>Mohamed Gawish</h3>
-        <h4>iOS/Android developer</h4>
-        <h6>
+        <h5>iOS/Android developer</h5>
+        <div>
           <img class="sm-icon" src="images/linkedin.svg">
           <a href="https://bit.ly/325eWEM">https://bit.ly/325eWEM</a>
-        </h6>
-        <h6>
+        </div>
+        <div>
           <img class="sm-icon" src="images/github.svg">
           <a href="https://github.com/mgawish">https://github.com/mgawish</a>
-        </h6>
+        </div>
       </div>
     </div>
     <br/>

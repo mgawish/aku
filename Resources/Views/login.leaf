@@ -1,6 +1,8 @@
 #set("content") {
   #if(error) {
-    <div class='alert alert-danger' role='alert'>
+    <div class="alert alert-danger" role="alert">
+      Please fix the errors below:
+      <br />
       #(error)
     </div>
   }
