@@ -7,18 +7,15 @@
     </div>
   }
   <div class="container bg-white">
-    <form method='post'
-    style='padding:16px'
-    class="container"
-    id='createPostForm'>
+    <form method='post' class="container" id='createPostForm'>
       <div class='form-group row'>
         <div class="col-sm-6">
           <label for='name'>Post Name</label>
-          <input type='text' class='form-control' id='name' name='name' value=#(name)>
+          <input type='text' class='form-control' id='name' name='name' value="#(name)">
         </div>
         <div class="col-sm-6">
           <label for='slug'>Slug:</label>
-          <input type='text' class='form-control' id='slug' name='slug' aria-describedby='slugHelp' value=#(slug)>
+          <input type='text' class='form-control' id='slug' name='slug' aria-describedby='slugHelp' value="#(slug)">
           <small id="emailHelp" class="form-text text-muted">Please use a unique slug with no spaces</small>
         </div>
       </div>

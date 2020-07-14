@@ -1,8 +1,8 @@
 #set("content") {
-  <div class="container">
+  <div class="container bg-white">
       <img src="#(imageUrl)" class="headerImage"/>
       <br/>
-      <br/>      
+      <br/>
       <h2>#(name)</h2>
       <p>#(content)</p>
   </div>

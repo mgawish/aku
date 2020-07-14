@@ -8,6 +8,7 @@
     <table class='table table-bordered table-hover'>
       <thead class='thead-light'>
         <th>Name</th>
+        <th>Slug</th>
         <th>Order</th>
         <th>Active</th>
       </thead>
@@ -15,6 +16,7 @@
         #for(blog in blogs) {
           <tr>
             <td><a href="/admin/apps/#(blog.id)">#(blog.name)</a></td>
+            <td>#(blog.slug)</td>
             <td>#(blog.order)</td>
             <td>#(blog.isActive)</td>
           </tr>
