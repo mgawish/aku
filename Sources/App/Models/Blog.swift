@@ -16,15 +16,30 @@ final class Blog: Codable {
     var slug: String
     var imageUrl: String
     var thumbUrl: String
+    var appStoreUrl: String
+    var googlePlayUrl: String
+    var githubUrl: String
     var order: Int
     var isActive: Bool
     
-    init(name: String, content: String, slug: String, imageUrl: String, thumbUrl: String, order: Int, isActive: Bool) {
+    init(name: String,
+         content: String,
+         slug: String,
+         imageUrl: String,
+         thumbUrl: String,
+         appStoreLink: String,
+         googlePlayLink: String,
+         githubLink: String,
+         order: Int,
+         isActive: Bool) {
         self.name = name
         self.content = content
         self.slug = slug
         self.imageUrl = imageUrl
         self.thumbUrl = thumbUrl
+        self.appStoreUrl = appStoreLink
+        self.googlePlayUrl = googlePlayLink
+        self.githubUrl = githubLink
         self.order = order
         self.isActive = isActive
     }
@@ -36,6 +51,9 @@ final class Blog: Codable {
                            slug: self.slug,
                            imageUrl: self.imageUrl,
                            thumbUrl: self.thumbUrl,
+                           appStoreUrl: self.appStoreUrl,
+                           googlePlayUrl: self.googlePlayUrl,
+                           githubUrl: self.githubUrl,
                            order: String(self.order),
                            isActive: self.isActive ? "checked" : "")
     }
@@ -46,6 +64,9 @@ final class Blog: Codable {
         self.slug = data.slug
         self.imageUrl = data.imageUrl
         self.thumbUrl = data.thumbUrl
+        self.appStoreUrl = data.appStoreUrl
+        self.googlePlayUrl = data.googlePlayUrl
+        self.githubUrl = data.githubUrl
         self.order = Int(data.order) ?? 0
         self.content = data.content
         self.isActive = data.isActive == "on"
@@ -72,8 +93,26 @@ struct NewBlogFields: Migration {
 
     static func prepare(on conn: Database.Connection) -> EventLoopFuture<Void> {
         return Database.update(Blog.self, on: conn) { builder in
-            let constraint = PostgreSQLColumnConstraint.default(.literal(""))
-            builder.field(for: \.thumbUrl, type: .text, constraint)
+            builder.field(for: \.thumbUrl, type: .text, PostgreSQLColumnConstraint.default(.literal("")))
+            builder.field(for: \.appStoreUrl, type: .text, PostgreSQLColumnConstraint.default(.literal("")))
+            builder.field(for: \.googlePlayUrl, type: .text, PostgreSQLColumnConstraint.default(.literal("")))
+            builder.field(for: \.githubUrl, type: .text, PostgreSQLColumnConstraint.default(.literal("")))
+        }
+    }
+    
+    static func revert(on conn: PostgreSQLConnection) -> EventLoopFuture<Void> {
+        return .done(on: conn)
+    }
+}
+
+struct NewBlogFields2: Migration {
+    typealias Database = PostgreSQLDatabase
+
+    static func prepare(on conn: Database.Connection) -> EventLoopFuture<Void> {
+        return Database.update(Blog.self, on: conn) { builder in
+            builder.field(for: \.appStoreUrl, type: .text, PostgreSQLColumnConstraint.default(.literal("")))
+            builder.field(for: \.googlePlayUrl, type: .text, PostgreSQLColumnConstraint.default(.literal("")))
+            builder.field(for: \.githubUrl, type: .text, PostgreSQLColumnConstraint.default(.literal("")))
         }
     }
     

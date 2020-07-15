@@ -81,6 +81,9 @@ class PublicController: RouteCollection {
                         slug: data.slug,
                         imageUrl: data.imageUrl,
                         thumbUrl: data.thumbUrl,
+                        appStoreLink: data.appStoreUrl,
+                        googlePlayLink: data.googlePlayUrl,
+                        githubLink: data.githubUrl,
                         order: Int(data.order) ?? 0,
                         isActive: data.isActive == "on")
         return blog.save(on: req).flatMap(to: View.self, {_ in
@@ -221,6 +224,9 @@ struct BlogContext: Content, Validatable, Reflectable {
     let slug: String
     let imageUrl: String
     let thumbUrl: String
+    let appStoreUrl: String
+    let googlePlayUrl: String
+    let githubUrl: String
     let order: String
     let isActive: String?
     let error: String? = nil

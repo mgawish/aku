@@ -12,6 +12,11 @@ body {
   margin-bottom: 4px;
 }
 
+.bg-icon {
+  width: 48px;
+  height: 48px;
+}
+
 .profile-pic {
   width: 100%;
   max-width: 250px;
@@ -30,14 +35,15 @@ textarea {
   text-decoration: none;
 }
 
-.headerImage {
-  height: 100px;
-}
-
 .small-form {
   max-width: 400px;
 }
 
 .content {
   margin-bottom: 15px;
+}
+
+.topDownMargin {
+  margin-top: 16px;
+  margin-bottom: 16px;
 }

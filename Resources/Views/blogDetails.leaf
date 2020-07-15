@@ -1,11 +1,27 @@
 #set("content") {
   <div class="container bg-white">
     #if(imageUrl) {
-      <div>
+      <div class="header-image-container">
         <img class="app-header-image" src="#(imageUrl)"/>
       </div>
     }
-    <br/>
+    <div class="topDownMargin">
+      #if(appStoreUrl != "") {
+        <a href="#(appStoreUrl)" target="_blank">
+          <img class="bg-icon" src="/images/app-store.svg" />
+        </a>
+      }
+      #if(googlePlayUrl != "") {
+        <a href="#(googlePlayUrl)" target="_blank">
+          <img class="bg-icon" src="/images/google-play.svg" />
+        </a>
+      }
+      #if(githubUrl != "") {
+        <a href="#(githubUrl)" target="_blank">
+          <img class="bg-icon" src="/images/github.svg" />
+        </a>
+      }
+    </div>
     <div class="">
       <h2>#(name)</h2>
       <p>#(content)</p>
