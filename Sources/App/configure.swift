@@ -50,7 +50,6 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     migrations.add(model: Blog.self, database: DatabaseIdentifier<Blog.Database>.psql)
     migrations.add(migration: AdminUser.self, database: DatabaseIdentifier<AdminUser.Database>.psql)
     migrations.add(migration: NewBlogFields.self, database: DatabaseIdentifier<Blog.Database>.psql)
-    migrations.add(migration: NewBlogFields2.self, database: DatabaseIdentifier<Blog.Database>.psql)
     services.register(migrations)
     
     var commandConfig = CommandConfig.default()

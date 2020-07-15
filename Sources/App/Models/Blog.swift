@@ -104,19 +104,3 @@ struct NewBlogFields: Migration {
         return .done(on: conn)
     }
 }
-
-struct NewBlogFields2: Migration {
-    typealias Database = PostgreSQLDatabase
-
-    static func prepare(on conn: Database.Connection) -> EventLoopFuture<Void> {
-        return Database.update(Blog.self, on: conn) { builder in
-            builder.field(for: \.appStoreUrl, type: .text, PostgreSQLColumnConstraint.default(.literal("")))
-            builder.field(for: \.googlePlayUrl, type: .text, PostgreSQLColumnConstraint.default(.literal("")))
-            builder.field(for: \.githubUrl, type: .text, PostgreSQLColumnConstraint.default(.literal("")))
-        }
-    }
-    
-    static func revert(on conn: PostgreSQLConnection) -> EventLoopFuture<Void> {
-        return .done(on: conn)
-    }
-}
