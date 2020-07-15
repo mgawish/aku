@@ -1,17 +1,17 @@
 #set("content") {
   <div class="container bg-white">
-    <div class="row">
-      <div class="col-sm-2 profile-div">
+    <div class="row profile-container">
+      <div class="col-md-2 profile-div">
         <img src="images/me.jpg" class="rounded img-thumbnail profile-pic"/>
         <!-- <img src="images/me.jpg" class="img-thumbnail rounded profile-pic"/> -->
       </div>
-      <div class="col-sm-10">
+      <div class="col">
         <h3>Mohamed Gawish</h3>
         <h6>iOS/Android developer</h6>
         <p>
-          I am a software engineer with a specialized in iOS development using Swift and I have some experience in building Android apps using kotlin.
+          I am a software engineer specialized in iOS development using Swift and I have some experience in building Android apps using kotlin.
         </p>
-        <div class="sm-div">
+        <div>
           <span>
             <img class="sm-icon" src="images/linkedin.svg">
             <a href="https://bit.ly/325eWEM" target="_blank">Linkedin</a>
@@ -46,7 +46,7 @@
         <div class='col-md-3 content'>
           <div class="card card text-center">
             <a href="/apps/#(blog.id)">
-              <img class="card-img-top" src=#(blog.imageUrl) >
+              <img class="card-img-top" src=#(blog.thumbUrl) >
               <div class="card-body">
                 <h5>#(blog.name)</h3>
               </div>

@@ -80,6 +80,7 @@ class PublicController: RouteCollection {
                         content: data.content,
                         slug: data.slug,
                         imageUrl: data.imageUrl,
+                        thumbUrl: data.thumbUrl,
                         order: Int(data.order) ?? 0,
                         isActive: data.isActive == "on")
         return blog.save(on: req).flatMap(to: View.self, {_ in
@@ -98,14 +99,7 @@ class PublicController: RouteCollection {
         _ = try req.requireAuthenticated(User.self)
         try data.validate()
         return try req.parameters.next(Blog.self).flatMap(to: View.self, { blog in
-            blog.name = data.name
-            blog.content = data.content
-            blog.slug = data.slug
-            blog.imageUrl = data.imageUrl
-            blog.order = Int(data.order) ?? 0
-            blog.content = data.content
-            blog.isActive = data.isActive == "on"
-            
+            blog.update(data)
             return blog.save(on: req).flatMap(to: View.self, { _ in
                 return try self.adminBlogsViewHandler(req: req)
             })
@@ -226,6 +220,7 @@ struct BlogContext: Content, Validatable, Reflectable {
     let content: String
     let slug: String
     let imageUrl: String
+    let thumbUrl: String
     let order: String
     let isActive: String?
     let error: String? = nil

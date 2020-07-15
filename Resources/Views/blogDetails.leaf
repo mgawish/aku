@@ -1,10 +1,15 @@
 #set("content") {
   <div class="container bg-white">
-      <img src="#(imageUrl)" class="headerImage"/>
-      <br/>
-      <br/>
+    #if(imageUrl) {
+      <div>
+        <img class="app-header-image" src="#(imageUrl)"/>
+      </div>
+    }
+    <br/>
+    <div class="">
       <h2>#(name)</h2>
       <p>#(content)</p>
+    </div>
   </div>
 }
 #embed("base")
