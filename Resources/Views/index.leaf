@@ -1,22 +1,36 @@
 #set("content") {
   <div class="container bg-white">
     <div class="row">
-      <img src="images/me.jpg" class="img-thumbnail rounded profile-pic"/>
-      <div>
+      <div class="col-sm-2 profile-div">
+        <img src="images/me.jpg" class="rounded img-thumbnail profile-pic"/>
+        <!-- <img src="images/me.jpg" class="img-thumbnail rounded profile-pic"/> -->
+      </div>
+      <div class="col-sm-10">
         <h3>Mohamed Gawish</h3>
-        <h5>iOS/Android developer</h5>
-        <div>
-          <img class="sm-icon" src="images/linkedin.svg">
-          <a href="https://bit.ly/325eWEM">https://bit.ly/325eWEM</a>
-        </div>
-        <div>
-          <img class="sm-icon" src="images/github.svg">
-          <a href="https://github.com/mgawish">https://github.com/mgawish</a>
+        <h6>iOS/Android developer</h6>
+        <p>
+          I am a software engineer with a specialized in iOS development using Swift and I have some experience in building Android apps using kotlin.
+        </p>
+        <div class="sm-div">
+          <span>
+            <img class="sm-icon" src="images/linkedin.svg">
+            <a href="https://bit.ly/325eWEM" target="_blank">Linkedin</a>
+            <span>&#8226;</span>
+          </span>
+          <span>
+            <img class="sm-icon" src="images/github.svg">
+            <a href="https://github.com/mgawish" target="_blank">Github</a>
+            <span>&#8226;</span>
+          </span>
+          <span>
+            <img class="sm-icon" src="images/resume.svg">
+            <a href="https://aku.s3.amazonaws.com/MohamedGawishResume.pdf" target="_blank">Resume</a>
+          </span>
         </div>
       </div>
     </div>
     <br/>
-    <div class="row container">
+    <!-- <div class="row container">
       <p>
         I started my career building educational apps for kids at Appy Kids. My primary role was developing cross platform apps using Cocos-2d (JS) framework. I also heavy user research and the gamification of pedagogical concepts to make sure children are learning while having fun.
       </p>
@@ -26,7 +40,7 @@
       <p>
         I eventually moved to Eat App, as a Product Manager. I introduced Agile and Scrum to improve productivity and was in charge of planning and feature prioritization based user testing and data insights.
       </p>
-    </div>
+    </div> -->
     <div class="row">
       #for(blog in blogs) {
         <div class='col-md-3 content'>
