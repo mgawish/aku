@@ -2,6 +2,10 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+nav {
+  background-color: black;
+}
+
 .container {
   padding: 16px;
 }
@@ -46,4 +50,13 @@ textarea {
 .topDownMargin {
   margin-top: 16px;
   margin-bottom: 16px;
+}
+
+#editor-container {
+  height: 100px;
+  margin-bottom: 16px;
+}
+
+.hidden {
+  visibility: hidden;
 }

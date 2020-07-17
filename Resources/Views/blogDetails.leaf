@@ -24,7 +24,9 @@
     </div>
     <div class="">
       <h2>#(name)</h2>
-      <p>#(content)</p>
+    </div>
+    <div>
+      #raw(content)
     </div>
   </div>
 }

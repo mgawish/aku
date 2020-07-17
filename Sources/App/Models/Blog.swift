@@ -68,7 +68,6 @@ final class Blog: Codable {
         self.googlePlayUrl = data.googlePlayUrl
         self.githubUrl = data.githubUrl
         self.order = Int(data.order) ?? 0
-        self.content = data.content
         self.isActive = data.isActive == "on"
     }
 }

@@ -60,4 +60,10 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     
     try services.register(AuthenticationProvider())
     config.prefer(MemoryKeyedCache.self, for: KeyedCache.self)
+    
+    services.register { container -> LeafTagConfig in
+    var config = LeafTagConfig.default()
+    config.use(Raw(), as: "raw")
+    return config
+    }
 }
