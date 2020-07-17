@@ -3,18 +3,23 @@ body {
 }
 
 nav {
-  background-color: black;
+  background-color: black;q
 }
 
 .container {
   padding: 16px;
 }
 
-.card {
-  margin-bottom: 16px;
-}
 .app-link-icons {
   height: 40px;
+}
+
+.card {
+  margin-bottom: 0px;
+}
+
+.card p {
+  margin-bottom: 0;
 }
 
 .card a, a:hover{
@@ -25,7 +30,6 @@ nav {
 .small-form {
   max-width: 400px;
 }
-
 
 #editor-container {
   height: 100px;
@@ -58,4 +62,8 @@ nav {
 .sub-text {
   font-size: 12px;
   color: gray;
+}
+
+.section {
+  margin-bottom: 16px;
 }

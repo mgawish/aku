@@ -1,6 +1,6 @@
 #set("content") {
   <div class="container bg-white">
-    <div class="title-container">
+    <div class="title-container section">
       <img class="rounded img-thumbnail float-left mr-4" src="images/me.jpg">
       <h2>Mohamed Gawish</h2>
       <h5>iOS developer</h5>
@@ -10,18 +10,19 @@
         <a href="https://aku.s3.amazonaws.com/MohamedGawishResume.pdf" target="_blank">Resume</a>
       </div>
     </div>
-    <br/>
     <div class="row">
       #for(blog in blogs) {
         <div class='col-md-3'>
-          <div class="card card text-center">
-            <a href="/apps/#(blog.id)">
-              <img class="card-img-top" src=#(blog.thumbUrl) >
-              <div class="card-body">
-                <p>#(blog.name)</p>
-                <p class="sub-text">#(blog.company)</p>
-              </div>
-            </a>
+          <div class="section">
+            <div class="card text-center">
+              <a href="/apps/#(blog.id)">
+                <img class="card-img-top" src=#(blog.thumbUrl) >
+                <div class="card-body">
+                  <p>#(blog.name)</p>
+                  <p class="sub-text">#(blog.company)</p>
+                </div>
+              </a>
+            </div>
           </div>
         </div>
       }

@@ -1,28 +1,27 @@
 #set("content") {
   <div class="container bg-white">
-    <div class="title-container">
+    <div class="title-container section">
       <img class="rounded img-thumbnail float-left mr-4" src=#(thumbUrl)>
       <h2>#(name)</h2>
       <h5>#(company)</h5>
-      <div>
-        #if(appStoreUrl != "") {
-          <a href="#(appStoreUrl)" target="_blank">
-            <img class="app-link-icons" src="/images/app-store.svg" />
-          </a>
-        }
-        #if(googlePlayUrl != "") {
-          <a href="#(googlePlayUrl)" target="_blank">
-            <img class="app-link-icons" src="/images/google-play.svg" />
-          </a>
-        }
-        #if(githubUrl != "") {
-          <a href="#(githubUrl)" target="_blank">
-            <img class="app-link-icons" src="/images/github.svg" />
-          </a>
-        }
-      </div>
     </div>
-    <br>
+    <div class="section">
+      #if(appStoreUrl != "") {
+        <a href="#(appStoreUrl)" target="_blank">
+          <img class="app-link-icons" src="/images/app-store.svg" />
+        </a>
+      }
+      #if(googlePlayUrl != "") {
+        <a href="#(googlePlayUrl)" target="_blank">
+          <img class="app-link-icons" src="/images/google-play.svg" />
+        </a>
+      }
+      #if(githubUrl != "") {
+        <a href="#(githubUrl)" target="_blank">
+          <img class="app-link-icons" src="/images/github.svg" />
+        </a>
+      }
+    </div>
     <div>
       <div class="row">
         <div class="col-md-6 content">
