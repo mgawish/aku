@@ -12,6 +12,7 @@ final class Blog: Codable {
     var id: UUID?
     var name: String
     var content: String
+    var company: String
     //let userId: User.ID?
     var slug: String
     var imageUrl: String
@@ -24,6 +25,7 @@ final class Blog: Codable {
     
     init(name: String,
          content: String,
+         company: String,
          slug: String,
          imageUrl: String,
          thumbUrl: String,
@@ -34,6 +36,7 @@ final class Blog: Codable {
          isActive: Bool) {
         self.name = name
         self.content = content
+        self.company = company
         self.slug = slug
         self.imageUrl = imageUrl
         self.thumbUrl = thumbUrl
@@ -48,6 +51,7 @@ final class Blog: Codable {
         return BlogContext(id: self.id,
                            name: self.name,
                            content: self.content,
+                           company: self.company,
                            slug: self.slug,
                            imageUrl: self.imageUrl,
                            thumbUrl: self.thumbUrl,
@@ -61,6 +65,7 @@ final class Blog: Codable {
     func update(_ data: BlogContext) {
         self.name = data.name
         self.content = data.content
+        self.company = data.company
         self.slug = data.slug
         self.imageUrl = data.imageUrl
         self.thumbUrl = data.thumbUrl
@@ -85,4 +90,20 @@ extension Blog: Validatable, Reflectable {
         try validations.add(\.name, .count(3...))
         return validations
     }
+}
+
+class BlogMigration: Migration {
+    static func prepare(on conn: PostgreSQLConnection) -> EventLoopFuture<Void> {
+        Database.update(Blog.self, on: conn) { builder in
+            builder.field(for: \.company, type: .text, PostgreSQLColumnConstraint.default(._literal("")))
+        }
+    }
+    
+    static func revert(on conn: PostgreSQLConnection) -> EventLoopFuture<Void> {
+        .done(on: conn)
+    }
+    
+    typealias Database = PostgreSQLDatabase
+    
+    
 }

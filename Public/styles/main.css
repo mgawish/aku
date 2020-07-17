@@ -82,3 +82,13 @@ textarea {
 .section {
   margin-top: 16px;
 }
+
+.title-container {
+  height: 180px;
+  margin-bottom: 32px;
+}
+
+.title-container img {
+  height: 100%;
+  width: 100%;
+}

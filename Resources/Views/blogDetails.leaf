@@ -1,9 +1,9 @@
 #set("content") {
   <div class="container bg-white">
-    <div class="">
-      <img class="rounded-62 img-thumbnail float-left mr-2" src=#(thumbUrl)>
+    <div>
+      <img class="rounded img-thumbnail float-left mr-4" src=#(thumbUrl)>
       <h2>#(name)</h2>
-      <h5>#(name)</h5>
+      <h5>#(company)</h5>
       <div class="topDownMargin">
         #if(appStoreUrl != "") {
           <a href="#(appStoreUrl)" target="_blank">
@@ -23,7 +23,7 @@
       </div>
     </div>
     <br>
-    <div class="section">
+    <div>
       <div class="row">
         <div class="col-md-6 content">
           <img src=#(imageUrl) class="img-main">

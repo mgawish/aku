@@ -78,6 +78,7 @@ class PublicController: RouteCollection {
         _ = try req.requireAuthenticated(User.self)
         let blog = Blog(name: data.name,
                         content: data.content,
+                        company: data.company,
                         slug: data.slug,
                         imageUrl: data.imageUrl,
                         thumbUrl: data.thumbUrl,
@@ -221,6 +222,7 @@ struct BlogContext: Content, Validatable, Reflectable {
     var id: UUID?
     let name: String
     let content: String
+    let company: String
     let slug: String
     let imageUrl: String
     let thumbUrl: String
