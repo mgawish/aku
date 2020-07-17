@@ -1,44 +1,25 @@
 #set("content") {
   <div class="container bg-white">
-    <div class="row profile-container">
-      <div class="col-md-2 profile-div">
-        <img src="images/me.jpg" class="rounded img-thumbnail profile-pic"/>
-        <!-- <img src="images/me.jpg" class="img-thumbnail rounded profile-pic"/> -->
-      </div>
-      <div class="col">
-        <h3>Mohamed Gawish</h3>
-        <h6>iOS developer</h6>
-        <p>
-          I am a software engineer specialized in iOS development using Swift and I have some experience in building Android apps using kotlin.
-        </p>
-        <div>
-          <span>
-            <img class="sm-icon" src="images/linkedin.svg">
-            <a href="https://bit.ly/325eWEM" target="_blank">Linkedin</a>
-            <span>&#8226;</span>
-          </span>
-          <span>
-            <img class="sm-icon" src="images/github.svg">
-            <a href="https://github.com/mgawish" target="_blank">Github</a>
-            <span>&#8226;</span>
-          </span>
-          <span>
-            <img class="sm-icon" src="images/resume.svg">
-            <a href="https://aku.s3.amazonaws.com/MohamedGawishResume.pdf" target="_blank">Resume</a>
-          </span>
-        </div>
+    <div class="title-container">
+      <img class="rounded img-thumbnail float-left mr-4" src="images/me.jpg">
+      <h2>Mohamed Gawish</h2>
+      <h5>iOS developer</h5>
+      <div>
+        <a href="https://bit.ly/325eWEM" target="_blank">Linkedin</a> &#8226;
+        <a href="https://github.com/mgawish" target="_blank">Github</a> &#8226;
+        <a href="https://aku.s3.amazonaws.com/MohamedGawishResume.pdf" target="_blank">Resume</a>
       </div>
     </div>
     <br/>
-
     <div class="row">
       #for(blog in blogs) {
-        <div class='col-md-3 content'>
+        <div class='col-md-3'>
           <div class="card card text-center">
             <a href="/apps/#(blog.id)">
               <img class="card-img-top" src=#(blog.thumbUrl) >
               <div class="card-body">
-                <h5>#(blog.name)</h3>
+                <p>#(blog.name)</p>
+                <p class="sub-text">#(blog.company)</p>
               </div>
             </a>
           </div>

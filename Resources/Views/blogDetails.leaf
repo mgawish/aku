@@ -1,23 +1,23 @@
 #set("content") {
   <div class="container bg-white">
-    <div>
+    <div class="title-container">
       <img class="rounded img-thumbnail float-left mr-4" src=#(thumbUrl)>
       <h2>#(name)</h2>
       <h5>#(company)</h5>
-      <div class="topDownMargin">
+      <div>
         #if(appStoreUrl != "") {
           <a href="#(appStoreUrl)" target="_blank">
-            <img class="bg-icon" src="/images/app-store.svg" />
+            <img class="app-link-icons" src="/images/app-store.svg" />
           </a>
         }
         #if(googlePlayUrl != "") {
           <a href="#(googlePlayUrl)" target="_blank">
-            <img class="bg-icon" src="/images/google-play.svg" />
+            <img class="app-link-icons" src="/images/google-play.svg" />
           </a>
         }
         #if(githubUrl != "") {
           <a href="#(githubUrl)" target="_blank">
-            <img class="bg-icon" src="/images/github.svg" />
+            <img class="app-link-icons" src="/images/github.svg" />
           </a>
         }
       </div>
