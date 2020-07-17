@@ -17,8 +17,7 @@ nav {
 }
 
 .bg-icon {
-  width: 48px;
-  height: 48px;
+  height: 40px;
 }
 
 .profile-pic {
@@ -44,7 +43,7 @@ textarea {
 }
 
 .content {
-  margin-bottom: 15px;
+  margin-bottom: 16px;
 }
 
 .topDownMargin {
@@ -59,4 +58,27 @@ textarea {
 
 .hidden {
   visibility: hidden;
+}
+
+.img-thumbnail {
+  max-width: 150px;
+}
+
+.img-main {
+  max-width: 100%
+}
+
+.title-text {
+  font-size: 32px;
+  margin-left: 4px;
+  vertical-align: top;
+}
+
+.sub-text {
+  font-size: 16px;
+  vertical-align: top;
+}
+
+.section {
+  margin-top: 16px;
 }

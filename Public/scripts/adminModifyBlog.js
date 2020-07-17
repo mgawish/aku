@@ -1,6 +1,5 @@
 $(document).ready(function() {
   document.getElementsByClassName("ql-editor")[0].innerHTML = document.getElementById("content").value
-  console.log("ad")
 });
 
 var quill = new Quill('.editorContainer', {

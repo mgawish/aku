@@ -30,17 +30,7 @@
       </div>
     </div>
     <br/>
-    <!-- <div class="row container">
-      <p>
-        I started my career building educational apps for kids at Appy Kids. My primary role was developing cross platform apps using Cocos-2d (JS) framework. I also heavy user research and the gamification of pedagogical concepts to make sure children are learning while having fun.
-      </p>
-      <p>
-        I then moved to tajawal, where I was working as an iOS developer in an Agile team.
-      </p>
-      <p>
-        I eventually moved to Eat App, as a Product Manager. I introduced Agile and Scrum to improve productivity and was in charge of planning and feature prioritization based user testing and data insights.
-      </p>
-    </div> -->
+
     <div class="row">
       #for(blog in blogs) {
         <div class='col-md-3 content'>

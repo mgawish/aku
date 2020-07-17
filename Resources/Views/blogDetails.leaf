@@ -1,32 +1,37 @@
 #set("content") {
   <div class="container bg-white">
-    #if(imageUrl) {
-      <div class="header-image-container">
-        <img class="app-header-image" src="#(imageUrl)"/>
-      </div>
-    }
-    <div class="topDownMargin">
-      #if(appStoreUrl != "") {
-        <a href="#(appStoreUrl)" target="_blank">
-          <img class="bg-icon" src="/images/app-store.svg" />
-        </a>
-      }
-      #if(googlePlayUrl != "") {
-        <a href="#(googlePlayUrl)" target="_blank">
-          <img class="bg-icon" src="/images/google-play.svg" />
-        </a>
-      }
-      #if(githubUrl != "") {
-        <a href="#(githubUrl)" target="_blank">
-          <img class="bg-icon" src="/images/github.svg" />
-        </a>
-      }
-    </div>
     <div class="">
+      <img class="rounded-62 img-thumbnail float-left mr-2" src=#(thumbUrl)>
       <h2>#(name)</h2>
+      <h5>#(name)</h5>
+      <div class="topDownMargin">
+        #if(appStoreUrl != "") {
+          <a href="#(appStoreUrl)" target="_blank">
+            <img class="bg-icon" src="/images/app-store.svg" />
+          </a>
+        }
+        #if(googlePlayUrl != "") {
+          <a href="#(googlePlayUrl)" target="_blank">
+            <img class="bg-icon" src="/images/google-play.svg" />
+          </a>
+        }
+        #if(githubUrl != "") {
+          <a href="#(githubUrl)" target="_blank">
+            <img class="bg-icon" src="/images/github.svg" />
+          </a>
+        }
+      </div>
     </div>
-    <div>
-      #raw(content)
+    <br>
+    <div class="section">
+      <div class="row">
+        <div class="col-md-6 content">
+          <img src=#(imageUrl) class="img-main">
+        </div>
+        <div class="col-md-5 content">
+          #raw(content)
+        </div>
+      </div>
     </div>
   </div>
 }
