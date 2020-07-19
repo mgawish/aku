@@ -1,0 +1,24 @@
+#set("content") {
+  <div class="container bg-white">
+    <p>
+      <a href="#">
+        <button class='btn btn-primary'>Create New</button>
+      </a>
+    </p>
+    <table class='table table-bordered table-hover'>
+      <thead class='thead-light'>
+        <th>Name</th>
+        <th>ID</th>
+      </thead>
+      <tbody>
+        #for(tag in tags) {
+          <tr>
+            <td>#(tag.name)</td>
+            <td>#(tag.id)</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}
+#embed("adminBase")

@@ -22,47 +22,11 @@ final class Blog: Codable {
     var githubUrl: String
     var order: Int
     var isActive: Bool
-    
-    init(name: String,
-         content: String,
-         company: String,
-         slug: String,
-         imageUrl: String,
-         thumbUrl: String,
-         appStoreLink: String,
-         googlePlayLink: String,
-         githubLink: String,
-         order: Int,
-         isActive: Bool) {
-        self.name = name
-        self.content = content
-        self.company = company
-        self.slug = slug
-        self.imageUrl = imageUrl
-        self.thumbUrl = thumbUrl
-        self.appStoreUrl = appStoreLink
-        self.googlePlayUrl = googlePlayLink
-        self.githubUrl = githubLink
-        self.order = order
-        self.isActive = isActive
+    var tags: Siblings<Blog, Tag, BlogTagPivot> {
+        return siblings()
     }
     
-    func convertToContext() -> BlogContext {
-        return BlogContext(id: self.id,
-                           name: self.name,
-                           content: self.content,
-                           company: self.company,
-                           slug: self.slug,
-                           imageUrl: self.imageUrl,
-                           thumbUrl: self.thumbUrl,
-                           appStoreUrl: self.appStoreUrl,
-                           googlePlayUrl: self.googlePlayUrl,
-                           githubUrl: self.githubUrl,
-                           order: String(self.order),
-                           isActive: self.isActive ? "checked" : "")
-    }
-    
-    func update(_ data: BlogContext) {
+    init(_ data: BlogContext) {
         self.name = data.name
         self.content = data.content
         self.company = data.company
@@ -75,14 +39,96 @@ final class Blog: Codable {
         self.order = Int(data.order) ?? 0
         self.isActive = data.isActive == "on"
     }
+    
+    func update(_ data: BlogContext, req: Request) throws -> Future<Blog> {
+        self.name = data.name
+        self.content = data.content
+        self.company = data.company
+        self.slug = data.slug
+        self.imageUrl = data.imageUrl
+        self.thumbUrl = data.thumbUrl
+        self.appStoreUrl = data.appStoreUrl
+        self.googlePlayUrl = data.googlePlayUrl
+        self.githubUrl = data.githubUrl
+        self.order = Int(data.order) ?? 0
+        self.isActive = data.isActive == "on"
+        return try updateBlogTags(data.tags, req: req).transform(to: self)
+    }
+    
+    private func copyValues(data: BlogContext) {
+        self.name = data.name
+        self.content = data.content
+        self.company = data.company
+        self.slug = data.slug
+        self.imageUrl = data.imageUrl
+        self.thumbUrl = data.thumbUrl
+        self.appStoreUrl = data.appStoreUrl
+        self.googlePlayUrl = data.googlePlayUrl
+        self.githubUrl = data.githubUrl
+        self.order = Int(data.order) ?? 0
+        self.isActive = data.isActive == "on"
+    }
+    
+    func updateBlogTags(_ responseTags: [String], req: Request) throws -> Future<Blog> {
+        return flatMap(to: Blog.self,
+                try self.tags.query(on: req).all(),
+                Tag.query(on: req).all()) { blogTags, allTags in
+                    var actions = [Future<Void>]()
+                    
+                    //remove tags
+                    actions = blogTags.compactMap({ tag in
+                        if !responseTags.contains(where: {$0 == tag.name}) {
+                            return self.tags.detach(tag, on: req)
+                        } else {
+                            return nil
+                        }
+                    })
+                    
+                    //add tags
+                    actions += responseTags.compactMap({ tagName in
+                        if blogTags.contains(where: { $0.name == tagName}) {
+                            return nil
+                        }
+                        if let tag = allTags.filter({ $0.name == tagName }).first {
+                            return self.tags.attach(tag, on: req).transform(to: ())
+                        } else {
+                            return Tag(name: tagName).save(on: req).flatMap(to: Void.self) { tag in
+                                self.tags.attach(tag, on: req).transform(to: ())
+                            }
+                        }
+                    })
+                    
+                    return actions.flatten(on: req).transform(to: self)
+        }
+    }
+    
+    func convertToContext(req: Request) throws -> Future<BlogContext> {
+        map(to: BlogContext.self,
+            try self.tags.query(on: req).all(),
+            Tag.query(on: req).all(), { tags, allTags in
+                return BlogContext(id: self.id,
+                                   name: self.name,
+                                   content: self.content,
+                                   company: self.company,
+                                   slug: self.slug,
+                                   imageUrl: self.imageUrl,
+                                   thumbUrl: self.thumbUrl,
+                                   appStoreUrl: self.appStoreUrl,
+                                   googlePlayUrl: self.googlePlayUrl,
+                                   githubUrl: self.githubUrl,
+                                   order: String(self.order),
+                                   isActive: self.isActive ? "checked" : "",
+                                   tags: tags.map({ $0.name }),
+                                   allTags: allTags.map({ $0.name }))
+                
+        })
+    }
 }
 
 extension Blog: PostgreSQLUUIDModel {}
 extension Blog: Content {}
 extension Blog: Parameter {}
-
-extension Blog: Migration {
-    }
+extension Blog: Migration {}
 
 extension Blog: Validatable, Reflectable {
     static func validations() throws -> Validations<Blog> {

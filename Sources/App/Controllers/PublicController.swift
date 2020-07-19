@@ -14,7 +14,6 @@ import Authentication
 class PublicController: RouteCollection {
     func boot(router: Router) throws {
         router.get(use: indexViewHandler)
-        router.get("apps", use: blogsViewHandler)
         router.get("apps", Blog.parameter, use: blogDetailsViewHanlder)
         router.get("login", use: loginViewHandler)
         router.post(LoginData.self, at: "login", use: loginHandler)
@@ -37,36 +36,40 @@ class PublicController: RouteCollection {
         adminRoutes.post(UserContext.self, at: "admin", "users", "create", use: createUserHandler)
         adminRoutes.get("admin", "users", User.parameter, use: editUserViewHandler)
         adminRoutes.post(UserContext.self, at: "admin", "users", User.parameter, "edit", use: editUserHandler)
+        
+        adminRoutes.get("admin", "tags", use: adminTagsViewHandler)
     }
     
     //MARK:- Public
     func indexViewHandler(req: Request) throws -> Future<View> {
-        let blogs = Blog
-            .query(on: req)
+        Blog.query(on: req)
             .filter(\.isActive == true)
             .sort(\.order)
             .all()
-        return try req.view().render("index",
-                                     BlogsContext(blogs: blogs))
-    }
-    
-    func blogsViewHandler(req: Request) throws -> Future<View> {
-        return try req.view().render("blogs",
-                                     BlogsContext(blogs: Blog.query(on: req).all()))
+            .flatMap(to: View.self, { blogs in
+                let data = try blogs.map({ try $0.convertToContext(req: req)}).flatten(on: req)
+                return try req.view().render("index", BlogsContext(blogs: data))
+            })
     }
     
     func blogDetailsViewHanlder(req: Request) throws -> Future<View> {
         return try req.parameters.next(Blog.self).flatMap(to: View.self) { blog in
-            return try req.view().render("blogDetails", blog.convertToContext())
+            return try req.view().render("blogDetails", blog.convertToContext(req: req))
         }
     }
     
     //MARK:- Admin Blogs
     func adminBlogsViewHandler(req: Request) throws -> Future<View> {
-        let user = try req.requireAuthenticated(User.self)
-        var context = BlogsContext(blogs: Blog.query(on: req).all())
-        context.username = user.name
-        return try req.view().render("adminBlogs", context)
+        _  = try req.requireAuthenticated(User.self)
+        return Blog
+            .query(on: req)
+            .filter(\.isActive == true)
+            .sort(\.order)
+            .all()
+            .flatMap(to: View.self, { blogs in
+                let data = try blogs.map({ try $0.convertToContext(req: req)}).flatten(on: req)
+                return try req.view().render("adminBlogs", BlogsContext(blogs: data))
+            })
     }
     
     func createBlogViewHandler(req: Request) throws -> Future<View> {
@@ -76,26 +79,17 @@ class PublicController: RouteCollection {
     
     func createBlogHandler(req: Request, data: BlogContext) throws -> Future<View> {
         _ = try req.requireAuthenticated(User.self)
-        let blog = Blog(name: data.name,
-                        content: data.content,
-                        company: data.company,
-                        slug: data.slug,
-                        imageUrl: data.imageUrl,
-                        thumbUrl: data.thumbUrl,
-                        appStoreLink: data.appStoreUrl,
-                        googlePlayLink: data.googlePlayUrl,
-                        githubLink: data.githubUrl,
-                        order: Int(data.order) ?? 0,
-                        isActive: data.isActive == "on")
-        return blog.save(on: req).flatMap(to: View.self, {_ in
-            return try self.adminBlogsViewHandler(req: req)
+        let blog = Blog(data)
+        return try blog.updateBlogTags(data.tags, req: req)
+            .save(on: req).flatMap(to: View.self, {_ in
+                return try self.adminBlogsViewHandler(req: req)
         })
     }
     
     func editBlogViewHandler(req: Request) throws -> Future<View> {
         _ = try req.requireAuthenticated(User.self)
         return try req.parameters.next(Blog.self).flatMap(to: View.self) { blog in
-            return try req.view().render("adminModifyBlog", blog.convertToContext())
+            return try req.view().render("adminModifyBlog", blog.convertToContext(req: req))
         }
     }
     
@@ -103,9 +97,10 @@ class PublicController: RouteCollection {
         _ = try req.requireAuthenticated(User.self)
         try data.validate()
         return try req.parameters.next(Blog.self).flatMap(to: View.self, { blog in
-            blog.update(data)
-            return blog.save(on: req).flatMap(to: View.self, { _ in
-                return try self.adminBlogsViewHandler(req: req)
+            return try blog.update(data, req: req)
+                .save(on: req)
+                .flatMap(to: View.self, { _ in
+                    return try self.adminBlogsViewHandler(req: req)
             })
         })
     }
@@ -158,6 +153,11 @@ class PublicController: RouteCollection {
         })
     }
     
+    //MARK:- Tags
+    func adminTagsViewHandler(req: Request) throws -> Future<View> {
+        return try req.view().render("adminTags", TagsContent(tags: Tag.query(on: req).all()))
+    }
+    
     //MARK:- Login
     func loginViewHandler(req: Request) throws -> Future<View> {
         let error = req.query[String.self, at: "error"]
@@ -190,8 +190,7 @@ class PublicController: RouteCollection {
 }
 
 struct BlogsContext: Encodable {
-    var username: String? = nil
-    let blogs: Future<[Blog]>
+    let blogs: Future<[BlogContext]>
 }
 
 struct UsersContext: Encodable {
@@ -232,6 +231,8 @@ struct BlogContext: Content, Validatable, Reflectable {
     let order: String
     let isActive: String?
     let error: String? = nil
+    var tags: [String]
+    var allTags: [String]
     
     static func validations() throws -> Validations<BlogContext> {
         var validations = Validations(BlogContext.self)
@@ -240,6 +241,7 @@ struct BlogContext: Content, Validatable, Reflectable {
         return validations
     }
 }
+
 
 struct LoginData: Content, Validatable, Reflectable {
     let username: String
@@ -255,4 +257,8 @@ struct LoginData: Content, Validatable, Reflectable {
 
 struct ErrorContext: Content {
     let error: String?
+}
+
+struct TagsContent: Encodable {
+    let tags: Future<[Tag]>
 }

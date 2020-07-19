@@ -4,6 +4,15 @@
       <img class="rounded img-thumbnail float-left mr-4" src=#(thumbUrl)>
       <h2>#(name)</h2>
       <h5>#(company)</h5>
+      <p class="section text-secondary">
+        #for(tag in tags) {
+          #if(isLast) {
+            #(tag)
+          } else {
+            #(tag),
+          }
+        }
+      </p>
     </div>
     <div class="section">
       #if(appStoreUrl != "") {

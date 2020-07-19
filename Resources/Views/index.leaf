@@ -19,7 +19,16 @@
                 <img class="card-img-top" src=#(blog.thumbUrl) >
                 <div class="card-body">
                   <p>#(blog.name)</p>
-                  <p class="sub-text">#(blog.company)</p>
+                  <small>#(blog.company)</small><br/>
+                  <small class="text-secondary">
+                    #for(tag in blog.tags) {
+                      #if(isLast) {
+                        #(tag)
+                      } else {
+                        #(tag),  
+                      }
+                    }
+                  </small>
                 </div>
               </a>
             </div>

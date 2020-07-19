@@ -16,7 +16,6 @@
         <div class="col-sm-6">
           <label for='slug'>Slug:</label>
           <input type='text' class='form-control' id='slug' name='slug' aria-describedby='slugHelp' value="#(slug)">
-          <small id="emailHelp" class="form-text text-muted">Please use a unique slug with no spaces</small>
         </div>
       </div>
       <div class='form-group row'>
@@ -55,6 +54,17 @@
           <input type='number' class='form-control' id='order' name='order' value=#(order)>
         </div>
       </div>
+      <div class='form-group'>
+        <label for='tags'>Categories:</label>
+        <select class='tags-select' name='tags[]' id='tags' multiple='multiple'>
+            #for(tag in allTags) {
+            <option  #if(contains(tags, tag)) {selected}>
+                    #(tag)
+            </option>
+            }
+        </select>
+      </div>
+      <label for='isActive'>Tags:</label>
       <div class="form-group editorContainer">
       </div>
       <input type="text" class="hidden" id="content" name="content" value="#(content)" >

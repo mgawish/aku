@@ -24,3 +24,9 @@ quill.on('text-change', function(delta, oldDelta, source) {
   var content = document.getElementsByClassName("ql-editor")[0].innerHTML
   document.getElementById("content").value = content
 });
+
+$('.tags-select').select2({
+    placeholder: "Select tags",
+    tags: true,
+    tokenSeparators: [',']
+});

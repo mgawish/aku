@@ -6,6 +6,10 @@ nav {
   background-color: black;q
 }
 
+select {
+  width: 100%;
+}
+
 .container {
   padding: 16px;
 }

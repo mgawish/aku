@@ -48,8 +48,10 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     var migrations = MigrationConfig()
     migrations.add(model: User.self, database: DatabaseIdentifier<User.Database>.psql)
     migrations.add(model: Blog.self, database: DatabaseIdentifier<Blog.Database>.psql)
+    migrations.add(model: Tag.self, database: DatabaseIdentifier<Tag.Database>.psql)
     migrations.add(migration: AdminUser.self, database: DatabaseIdentifier<AdminUser.Database>.psql)
     migrations.add(migration: BlogMigration.self, database: DatabaseIdentifier<AdminUser.Database>.psql)
+    migrations.add(model: BlogTagPivot.self, database: DatabaseIdentifier<BlogTagPivot.Database>.psql)
     services.register(migrations)
     
     var commandConfig = CommandConfig.default()
