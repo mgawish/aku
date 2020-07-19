@@ -74,6 +74,15 @@
         }
       },
       {
+        "package": "GoogleAnalyticsProvider",
+        "repositoryURL": "https://github.com/PoissonBallon/google-analytics-provider.git",
+        "state": {
+          "branch": null,
+          "revision": "3aefc42548ed58922f726853b7503a626c25231a",
+          "version": "0.0.2"
+        }
+      },
+      {
         "package": "HTTP",
         "repositoryURL": "https://github.com/vapor/http.git",
         "state": {

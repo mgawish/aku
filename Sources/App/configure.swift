@@ -2,6 +2,7 @@ import FluentPostgreSQL
 import Vapor
 import Leaf
 import Authentication
+import GoogleAnalyticsProvider
 
 /// Called before your application initializes.
 public func configure(_ config: inout Config, _ env: inout Environment, _ services: inout Services) throws {
@@ -67,6 +68,13 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     services.register { container -> LeafTagConfig in
     var config = LeafTagConfig.default()
     config.use(Raw(), as: "raw")
-    return config
+        return config
     }
+    
+    if let googleAnalyticsKey = Environment.get("GOOGLE_ANALYTICS_KEY") {
+        let config = GoogleAnalyticsConfig(trackingID: googleAnalyticsKey)
+        services.register(config)
+        try services.register(GoogleAnalyticsProvider())
+    }
+    
 }
