@@ -44,23 +44,17 @@ select {
   visibility: hidden;
 }
 
-.img-thumbnail {
-  max-width: 150px;
-}
-
 .img-main {
   max-width: 100%
 }
 
 .title-container {
-  height: 150px;
+  height: 170px;
   /* margin-bottom: 32px; */
 }
 
 .title-container img {
   height: 100%;
-  width: 100%;
-  max-width: 150px;
 }
 
 .sub-text {

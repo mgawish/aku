@@ -2,13 +2,22 @@
   <div class="container bg-white">
     <div class="title-container section">
       <img class="rounded img-thumbnail float-left mr-4" src="images/me.jpg">
-      <h2>Mohamed Gawish</h2>
-      <h5>iOS developer</h5>
       <div>
-        <a href="https://bit.ly/325eWEM" target="_blank">Linkedin</a> &#8226;
-        <a href="https://github.com/mgawish" target="_blank">Github</a> &#8226;
-        <a href="https://aku.s3.amazonaws.com/MohamedGawishResume.pdf" target="_blank">Resume</a>
+        <h2>Mohamed Gawish</h2>
+        <h5>iOS developer</h5>
+        <div>
+          <a href="https://bit.ly/325eWEM" target="_blank">Linkedin</a> &#8226;
+          <a href="https://github.com/mgawish" target="_blank">Github</a> &#8226;
+          <a href="https://aku.s3.amazonaws.com/MohamedGawishResume.pdf" target="_blank">Resume</a>
+        </div>
       </div>
+    </div>
+    <div class="section">
+      <p>
+        Hi! I am Gawish, a software engineer specialized in building iOS apps using Swift.
+        I also have some experince building Android apps using Kotlin.
+        Here are some of the apps I have worked on through out the years.
+      </p>
     </div>
     <div class="row">
       #for(blog in blogs) {
@@ -25,7 +34,7 @@
                       #if(isLast) {
                         #(tag)
                       } else {
-                        #(tag),  
+                        #(tag),
                       }
                     }
                   </small>
