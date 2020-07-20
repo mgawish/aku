@@ -80,8 +80,11 @@ class PublicController: RouteCollection {
     func createBlogHandler(req: Request, data: BlogContext) throws -> Future<View> {
         _ = try req.requireAuthenticated(User.self)
         let blog = Blog(data)
-        return try blog.updateBlogTags(data.tags, req: req)
-            .save(on: req).flatMap(to: View.self, {_ in
+        return try blog
+            .save(on: req).flatMap(to: Blog.self, { blog in
+                return try blog.updateBlogTags(data.tags, req: req)
+            })
+            .flatMap(to: View.self, {_ in
                 return try self.adminBlogsViewHandler(req: req)
         })
     }
