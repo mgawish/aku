@@ -1,7 +1,11 @@
 #set("content") {
   <div class="container bg-white">
     <div class="title-container section">
-      <img class="rounded img-thumbnail float-left mr-4" src=#(thumbUrl)>
+      #if(thumbUrl != "") {
+        <img class="rounded img-thumbnail float-left mr-4" src=#(thumbUrl)>
+      } else {
+        <img class="rounded img-thumbnail float-left mr-4" src="/images/github-thumb.svg" >
+      }
       <h2>#(name)</h2>
       <h5>#(company)</h5>
       <p class="section text-secondary">
@@ -34,10 +38,10 @@
     <div>
       <div class="row">
         <div class="col-md-6 content">
-          <img src=#(imageUrl) class="img-main">
-        </div>
-        <div class="col-md-5 content">
           #raw(content)
+        </div>
+        <div class="col-md-6 content">
+          <img src=#(imageUrl) class="img-main">
         </div>
       </div>
     </div>
