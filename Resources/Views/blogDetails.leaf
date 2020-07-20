@@ -18,27 +18,30 @@
         }
       </p>
     </div>
-    <div class="section">
-      #if(appStoreUrl != "") {
-        <a href="#(appStoreUrl)" target="_blank">
-          <img class="app-link-icons" src="/images/app-store.svg" />
-        </a>
-      }
-      #if(googlePlayUrl != "") {
-        <a href="#(googlePlayUrl)" target="_blank">
-          <img class="app-link-icons" src="/images/google-play.svg" />
-        </a>
-      }
-      #if(githubUrl != "") {
-        <a href="#(githubUrl)" target="_blank">
-          <img class="app-link-icons" src="/images/github.svg" />
-        </a>
-      }
-    </div>
+
     <div>
       <div class="row">
         <div class="col-md-6 content">
-          #raw(content)
+          <div class="section">
+            #if(appStoreUrl != "") {
+              <a href="#(appStoreUrl)" target="_blank">
+                <img class="app-link-icons" src="/images/app-store.svg" />
+              </a>
+            }
+            #if(googlePlayUrl != "") {
+              <a href="#(googlePlayUrl)" target="_blank">
+                <img class="app-link-icons" src="/images/google-play.svg" />
+              </a>
+            }
+            #if(githubUrl != "") {
+              <a href="#(githubUrl)" target="_blank">
+                <img class="app-link-icons" src="/images/github.svg" />
+              </a>
+            }
+          </div>
+          <div class="section">
+            #raw(content)
+          </div>
         </div>
         <div class="col-md-6 content">
           <img src=#(imageUrl) class="img-main">
