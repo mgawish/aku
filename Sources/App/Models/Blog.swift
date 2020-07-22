@@ -125,9 +125,34 @@ final class Blog: Codable {
     }
 }
 
+extension Blog: Parameter {
+    static func resolveParameter(_ parameter: String, on container: Container) throws -> EventLoopFuture<Blog> {
+        if let id = UUID(parameter) {
+            return container.requestCachedConnection(to: .psql).flatMap(to: Blog.self, { req in
+                return Blog.query(on: req)
+                    .filter(\.id == id)
+                    .first()
+                    .unwrap(or: Abort(.notFound))
+                    .always {
+                        try? container.releasePooledConnection(req, to: .psql)
+                    }
+            })
+        }
+        
+        return container.requestCachedConnection(to: .psql).flatMap(to: Blog.self, { req in
+            return Blog.query(on: req)
+                .filter(\.slug == parameter)
+                .first()
+                .unwrap(or: Abort(.notFound))
+                .always {
+                    try? container.releasePooledConnection(req, to: .psql)
+                }
+        })
+    }
+}
+
 extension Blog: PostgreSQLUUIDModel {}
 extension Blog: Content {}
-extension Blog: Parameter {}
 extension Blog: Migration {}
 
 extension Blog: Validatable, Reflectable {
@@ -136,20 +161,4 @@ extension Blog: Validatable, Reflectable {
         try validations.add(\.name, .count(3...))
         return validations
     }
-}
-
-class BlogMigration: Migration {
-    static func prepare(on conn: PostgreSQLConnection) -> EventLoopFuture<Void> {
-        Database.update(Blog.self, on: conn) { builder in
-            builder.field(for: \.company, type: .text, PostgreSQLColumnConstraint.default(._literal("")))
-        }
-    }
-    
-    static func revert(on conn: PostgreSQLConnection) -> EventLoopFuture<Void> {
-        .done(on: conn)
-    }
-    
-    typealias Database = PostgreSQLDatabase
-    
-    
 }

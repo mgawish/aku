@@ -24,7 +24,7 @@
         <div class='col-md-3'>
           <div class="section">
             <div class="card text-center">
-              <a href="/apps/#(blog.id)">
+              <a href="/apps/#(blog.slug)">
                 #if(blog.thumbUrl != "") {
                   <img class="card-img-top" src=#(blog.thumbUrl) >
                 } else {
