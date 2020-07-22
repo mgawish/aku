@@ -26,36 +26,7 @@ final class Blog: Codable {
         return siblings()
     }
     
-    init(_ data: BlogContext) {
-        self.name = data.name
-        self.content = data.content
-        self.company = data.company
-        self.slug = data.slug
-        self.imageUrl = data.imageUrl
-        self.thumbUrl = data.thumbUrl
-        self.appStoreUrl = data.appStoreUrl
-        self.googlePlayUrl = data.googlePlayUrl
-        self.githubUrl = data.githubUrl
-        self.order = Int(data.order) ?? 0
-        self.isActive = data.isActive == "on"
-    }
-    
-    func update(_ data: BlogContext, req: Request) throws -> Future<Blog> {
-        self.name = data.name
-        self.content = data.content
-        self.company = data.company
-        self.slug = data.slug
-        self.imageUrl = data.imageUrl
-        self.thumbUrl = data.thumbUrl
-        self.appStoreUrl = data.appStoreUrl
-        self.googlePlayUrl = data.googlePlayUrl
-        self.githubUrl = data.githubUrl
-        self.order = Int(data.order) ?? 0
-        self.isActive = data.isActive == "on"
-        return try updateBlogTags(data.tags, req: req).transform(to: self)
-    }
-    
-    private func copyValues(data: BlogContext) {
+    init(_ data: Blog.Data) {
         self.name = data.name
         self.content = data.content
         self.company = data.company
@@ -101,12 +72,69 @@ final class Blog: Codable {
                     return actions.flatten(on: req).transform(to: self)
         }
     }
+}
+
+extension Blog {
+    struct Data: Content, Validatable, Reflectable {
+        var username: String? = nil
+        var id: UUID?
+        let name: String
+        let content: String
+        let company: String
+        let slug: String
+        let imageUrl: String
+        let thumbUrl: String
+        let appStoreUrl: String
+        let googlePlayUrl: String
+        let githubUrl: String
+        let order: String
+        let isActive: String?
+        let error: String? = nil
+        var tags: [String]
+        var allTags: [String]
+        
+        static func validations() throws -> Validations<Data> {
+            var validations = Validations(Data.self)
+            try validations.add(\.name, .count(3...))
+            try validations.add(\.slug, .count(3...))
+            return validations
+        }
+    }
     
-    func convertToContext(req: Request) throws -> Future<BlogContext> {
-        map(to: BlogContext.self,
+    func update(_ data: Blog.Data, req: Request) throws -> Future<Blog> {
+        self.name = data.name
+        self.content = data.content
+        self.company = data.company
+        self.slug = data.slug
+        self.imageUrl = data.imageUrl
+        self.thumbUrl = data.thumbUrl
+        self.appStoreUrl = data.appStoreUrl
+        self.googlePlayUrl = data.googlePlayUrl
+        self.githubUrl = data.githubUrl
+        self.order = Int(data.order) ?? 0
+        self.isActive = data.isActive == "on"
+        return try updateBlogTags(data.tags, req: req).transform(to: self)
+    }
+    
+    private func copyValues(data: Blog.Data) {
+        self.name = data.name
+        self.content = data.content
+        self.company = data.company
+        self.slug = data.slug
+        self.imageUrl = data.imageUrl
+        self.thumbUrl = data.thumbUrl
+        self.appStoreUrl = data.appStoreUrl
+        self.googlePlayUrl = data.googlePlayUrl
+        self.githubUrl = data.githubUrl
+        self.order = Int(data.order) ?? 0
+        self.isActive = data.isActive == "on"
+    }
+    
+    func convertToData(req: Request) throws -> Future<Blog.Data> {
+        map(to: Blog.Data.self,
             try self.tags.query(on: req).all(),
             Tag.query(on: req).all(), { tags, allTags in
-                return BlogContext(id: self.id,
+                return Blog.Data(id: self.id,
                                    name: self.name,
                                    content: self.content,
                                    company: self.company,
@@ -124,7 +152,6 @@ final class Blog: Codable {
         })
     }
 }
-
 extension Blog: Parameter {
     static func resolveParameter(_ parameter: String, on container: Container) throws -> EventLoopFuture<Blog> {
         if let id = UUID(parameter) {

@@ -27,9 +27,9 @@ class PublicController: RouteCollection {
         adminRoutes.get("admin", "users", use: adminUsersViewHandler)
 
         adminRoutes.get("admin", "apps", "create", use: createBlogViewHandler)
-        adminRoutes.post(BlogContext.self, at: "admin", "apps", "create", use: createBlogHandler)
+        adminRoutes.post(Blog.Data.self, at: "admin", "apps", "create", use: createBlogHandler)
         adminRoutes.get("admin", "apps", Blog.parameter, use: editBlogViewHandler)
-        adminRoutes.post(BlogContext.self, at: "admin", "apps", Blog.parameter, "edit", use: editBlogHandler)
+        adminRoutes.post(Blog.Data.self, at: "admin", "apps", Blog.parameter, "edit", use: editBlogHandler)
         adminRoutes.post( "admin", "apps", Blog.parameter, "delete", use: deleteBlogHandler)
         
         adminRoutes.get("admin", "users", "create", use: createUserViewHandler)
@@ -47,14 +47,14 @@ class PublicController: RouteCollection {
             .sort(\.order)
             .all()
             .flatMap(to: View.self, { blogs in
-                let data = try blogs.map({ try $0.convertToContext(req: req)}).flatten(on: req)
+                let data = try blogs.map({ try $0.convertToData(req: req)}).flatten(on: req)
                 return try req.view().render("index", BlogsContext(blogs: data))
             })
     }
     
     func blogDetailsViewHanlder(req: Request) throws -> Future<View> {
         return try req.parameters.next(Blog.self).flatMap(to: View.self) { blog in
-            return try req.view().render("blogDetails", blog.convertToContext(req: req))
+            return try req.view().render("blogDetails", blog.convertToData(req: req))
         }
     }
     
@@ -67,7 +67,7 @@ class PublicController: RouteCollection {
             .sort(\.order)
             .all()
             .flatMap(to: View.self, { blogs in
-                let data = try blogs.map({ try $0.convertToContext(req: req)}).flatten(on: req)
+                let data = try blogs.map({ try $0.convertToData(req: req)}).flatten(on: req)
                 return try req.view().render("adminBlogs", BlogsContext(blogs: data))
             })
     }
@@ -77,7 +77,7 @@ class PublicController: RouteCollection {
         return try req.view().render("adminModifyBlog")
     }
     
-    func createBlogHandler(req: Request, data: BlogContext) throws -> Future<View> {
+    func createBlogHandler(req: Request, data: Blog.Data) throws -> Future<View> {
         _ = try req.requireAuthenticated(User.self)
         let blog = Blog(data)
         return blog
@@ -92,11 +92,11 @@ class PublicController: RouteCollection {
     func editBlogViewHandler(req: Request) throws -> Future<View> {
         _ = try req.requireAuthenticated(User.self)
         return try req.parameters.next(Blog.self).flatMap(to: View.self) { blog in
-            return try req.view().render("adminModifyBlog", blog.convertToContext(req: req))
+            return try req.view().render("adminModifyBlog", blog.convertToData(req: req))
         }
     }
     
-    func editBlogHandler(req: Request, data: BlogContext) throws -> Future<View> {
+    func editBlogHandler(req: Request, data: Blog.Data) throws -> Future<View> {
         _ = try req.requireAuthenticated(User.self)
         try data.validate()
         return try req.parameters.next(Blog.self).flatMap(to: View.self, { blog in
@@ -193,7 +193,7 @@ class PublicController: RouteCollection {
 }
 
 struct BlogsContext: Encodable {
-    let blogs: Future<[BlogContext]>
+    let blogs: Future<[Blog.Data]>
 }
 
 struct UsersContext: Encodable {
@@ -218,33 +218,6 @@ struct UserContext: Content, Validatable, Reflectable {
         return validations
     }
 }
-
-struct BlogContext: Content, Validatable, Reflectable {
-    var username: String? = nil
-    var id: UUID?
-    let name: String
-    let content: String
-    let company: String
-    let slug: String
-    let imageUrl: String
-    let thumbUrl: String
-    let appStoreUrl: String
-    let googlePlayUrl: String
-    let githubUrl: String
-    let order: String
-    let isActive: String?
-    let error: String? = nil
-    var tags: [String]
-    var allTags: [String]
-    
-    static func validations() throws -> Validations<BlogContext> {
-        var validations = Validations(BlogContext.self)
-        try validations.add(\.name, .count(3...))
-        try validations.add(\.slug, .count(3...))
-        return validations
-    }
-}
-
 
 struct LoginData: Content, Validatable, Reflectable {
     let username: String
