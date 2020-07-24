@@ -2,9 +2,9 @@
   <div class="container bg-white">
     <div class="title-container section">
       #if(thumbUrl != "") {
-        <img class="rounded img-thumbnail float-left mr-4" src=#(thumbUrl)>
+        <img class="rounded img-thumbnail float-left mr-3" src=#(thumbUrl)>
       } else {
-        <img class="rounded img-thumbnail float-left mr-4" src="/images/github-thumb.svg" >
+        <img class="rounded img-thumbnail float-left mr-3" src="/images/github-thumb.svg" >
       }
       <h2>#(name)</h2>
       <h5>#(company)</h5>

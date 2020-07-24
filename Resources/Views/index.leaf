@@ -2,7 +2,7 @@
   <div class="container bg-white">
     #if(tagName == nil) {
       <div class="title-container section">
-        <img class="rounded img-thumbnail float-left mr-4" src="images/me.jpg">
+        <img class="rounded img-thumbnail float-left mr-3" src="images/me.jpg">
         <div>
           <h2>Mohamed Gawish</h2>
           <h5>iOS developer</h5>
@@ -16,7 +16,7 @@
       <div class="section">
         <p>
           Hi! I am Gawish, a software engineer specialized in building iOS apps using Swift.
-          I also have some experince building Android apps using Kotlin.
+          I also have some experience building Android apps using Kotlin.
           Here are some of the apps I have worked on through out the years.
         </p>
       </div>
