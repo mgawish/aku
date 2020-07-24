@@ -22,9 +22,6 @@ final class Blog: Codable {
     var githubUrl: String
     var order: Int
     var isActive: Bool
-    var tags: Siblings<Blog, Tag, BlogTagPivot> {
-        return siblings()
-    }
     
     init(_ data: Blog.Data) {
         self.name = data.name
@@ -73,7 +70,14 @@ final class Blog: Codable {
         }
     }
 }
+//MARK:- Tags
+extension Blog {
+    var tags: Siblings<Blog, Tag, BlogTagPivot> {
+        return siblings()
+    }
+}
 
+//MARK:- Content
 extension Blog {
     struct Data: Content, Validatable, Reflectable {
         var username: String? = nil
@@ -152,6 +156,8 @@ extension Blog {
         })
     }
 }
+
+//MARK:- Params
 extension Blog: Parameter {
     static func resolveParameter(_ parameter: String, on container: Container) throws -> EventLoopFuture<Blog> {
         if let id = UUID(parameter) {
@@ -177,11 +183,7 @@ extension Blog: Parameter {
         })
     }
 }
-
-extension Blog: PostgreSQLUUIDModel {}
-extension Blog: Content {}
-extension Blog: Migration {}
-
+//NARK:- Validation
 extension Blog: Validatable, Reflectable {
     static func validations() throws -> Validations<Blog> {
         var validations = Validations(Blog.self)
@@ -189,3 +191,10 @@ extension Blog: Validatable, Reflectable {
         return validations
     }
 }
+
+//MARK:- Default Protocols
+extension Blog: PostgreSQLUUIDModel {}
+extension Blog: Content {}
+extension Blog: Migration {}
+
+
