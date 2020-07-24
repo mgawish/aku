@@ -11,9 +11,9 @@
       <p class="section text-secondary">
         #for(tag in tags) {
           #if(isLast) {
-            <a href="/?tag=#(tag)">#(tag)</a>
+            <a href="/#(tag)">#(tag)</a>
           } else {
-            <a href="/?tag=#(tag)">#(tag)</a>,
+            <a href="/#(tag)">#(tag)</a>,
           }
         }
       </p>

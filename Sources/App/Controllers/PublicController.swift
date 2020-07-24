@@ -15,6 +15,7 @@ class PublicController: RouteCollection {
     func boot(router: Router) throws {
         router.get(use: indexViewHandler)
         router.get("apps", Blog.parameter, use: blogDetailsViewHanlder)
+        router.get(String.parameter, use: taggedBlogsViewHandler)
         router.get("login", use: loginViewHandler)
         router.post(LoginContent.self, at: "login", use: loginHandler)
         router.get("logout", use: logoutHandler)
@@ -42,30 +43,31 @@ class PublicController: RouteCollection {
     
     //MARK:- Public
     func indexViewHandler(req: Request) throws -> Future<View> {
-        if let tagName = try? req.query.get(String.self, at: "tag") {
-            return Blog.query(on: req)
-                .sort(\.order)
-                .filter(\.isActive == true)
-                .join(\BlogTagPivot.blogId, to: \Blog.id)
-                .join(\Tag.id, to: \BlogTagPivot.tagId)
-                .alsoDecode(Tag.self)
-                .filter(\Tag.name == tagName)
-                .all()
-                .flatMap(to: View.self, { result in
-                    let blogs = try result.compactMap({ try $0.0.convertToData(req: req) }).flatten(on: req)
-                    return try req.view().render("index", BlogsContent(tagName: tagName,
-                                                                       blogs: blogs))
-                })
-        } else {
-            return Blog.query(on: req)
-                .sort(\.order)
-                .filter(\.isActive == true)
-                .all()
-                .flatMap(to: View.self, { blogs in
-                    let blogs = try blogs.compactMap({ try $0.convertToData(req: req) }).flatten(on: req)
-                    return try req.view().render("index", BlogsContent(blogs: blogs))
-                })
-        }
+        return Blog.query(on: req)
+            .sort(\.order)
+            .filter(\.isActive == true)
+            .all()
+            .flatMap(to: View.self, { blogs in
+                let blogs = try blogs.compactMap({ try $0.convertToData(req: req) }).flatten(on: req)
+                return try req.view().render("index", BlogsContent(blogs: blogs))
+            })
+    }
+    
+    func taggedBlogsViewHandler(req: Request) throws -> Future<View> {
+        let tagName = try req.parameters.next(String.self)
+        return Blog.query(on: req)
+            .sort(\.order)
+            .filter(\.isActive == true)
+            .join(\BlogTagPivot.blogId, to: \Blog.id)
+            .join(\Tag.id, to: \BlogTagPivot.tagId)
+            .alsoDecode(Tag.self)
+            .filter(\Tag.name == tagName)
+            .all()
+            .flatMap(to: View.self, { result in
+                let blogs = try result.compactMap({ try $0.0.convertToData(req: req) }).flatten(on: req)
+                return try req.view().render("index", BlogsContent(tagName: tagName,
+                                                                   blogs: blogs))
+            })
     }
     
     func blogDetailsViewHanlder(req: Request) throws -> Future<View> {
