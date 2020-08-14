@@ -1,0 +1,33 @@
+#set("content") {
+  #if(error) {
+    <div class="alert alert-danger" role="alert">
+      Please fix the errors below:
+      <br>
+      #(error)
+    </div>
+  }
+  <div class="container bg-white">
+    <h2>Contact me</h2>
+    <p>Don’t hesitate to reach out to me if you want to connect.</p>
+    <form method="post" id="contact-form" action="/send_email">
+      <div class="form-group">
+        <label for="name">Your Name (required)</label>
+        <input type="text" class="form-control" id="name" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Your Email (required)</label>
+        <input type="email" class="form-control" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="subject">Subject</label>
+        <input type="subject" class="form-control" id="subject" name="subject">
+      </div>
+      <div class="form-group">
+        <label for="message">Your message</label> <br>
+        <textarea class="form-control" id="message" name="message" form="contact-form"></textarea>
+      </div>
+      <button class="btn btn-primary">Send Email</button>
+     </form>
+  </div>
+}
+#embed("base")

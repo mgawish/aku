@@ -1,0 +1,8 @@
+#set("content") {
+  <div class="container bg-white">
+    <h2>Email Recieved</h2>
+    <p>Thank you for reaching out, I will respond to you soon.</p>
+    <p>- Gawish</p>
+  </div>
+}
+#embed("base")

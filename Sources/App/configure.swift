@@ -3,6 +3,7 @@ import Vapor
 import Leaf
 import Authentication
 import GoogleAnalyticsProvider
+import MailCore
 
 /// Called before your application initializes.
 public func configure(_ config: inout Config, _ env: inout Environment, _ services: inout Services) throws {
@@ -78,6 +79,11 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
         let config = GoogleAnalyticsConfig(trackingID: googleAnalyticsKey)
         services.register(config)
         try services.register(GoogleAnalyticsProvider())
+    }
+    
+    if let sendgridKey = Environment.get("SENDGRID_KEY") {
+        try Mailer(config: Mailer.Config.sendGrid(key: sendgridKey),
+        registerOn: &services)
     }
     
 }

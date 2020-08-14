@@ -10,16 +10,26 @@ import Leaf
 import Crypto
 import Fluent
 import Authentication
+import MailCore
 
 class PublicController: RouteCollection {
     func boot(router: Router) throws {
+        //index and apps
         router.get(use: indexViewHandler)
         router.get("apps", Blog.parameter, use: blogDetailsViewHanlder)
         router.get(String.parameter, use: taggedBlogsViewHandler)
+        
+        //contact
+        router.get("contact", use: contactViewHandler)
+        router.post(EmailContent.self, at: "send_email", use: sendEmailHandler)
+        router.get("email_confirmation", use: emailConfirmationViewHandler)
+        
+        //auth
         router.get("login", use: loginViewHandler)
         router.post(LoginContent.self, at: "login", use: loginHandler)
         router.get("logout", use: logoutHandler)
         
+        //admin
         let adminRoutes = router.grouped([User.authSessionsMiddleware(),
                                           RedirectMiddleware<User>(path: "/login")])
         
@@ -74,6 +84,41 @@ class PublicController: RouteCollection {
         return try req.parameters.next(Blog.self).flatMap(to: View.self) { blog in
             return try req.view().render("blogDetails", blog.convertToData(req: req))
         }
+    }
+    
+    
+    func contactViewHandler(req: Request) throws -> Future<View> {
+        let error = req.query[String.self, at: "error"]
+        return try req.view().render("contact", ErrorContent(error: error))
+    }
+    
+    func sendEmailHandler(req: Request, data: EmailContent) throws -> Future<Response> {
+        do {
+            try data.validate()
+        } catch {
+            return req.future(req.redirect(to: "/contact?error=\(error.localizedDescription.urlEndcoded())"))
+        }
+        
+        let mail = Mailer.Message(from: Environment.get("FROM_EMAIL") ?? "",
+                                  to: Environment.get("TO_EMAIL") ?? "",
+                                  subject: data.subject,
+                                  text: "Some one reached out",
+                                  html: """
+                                        <p><strong>Email</strong></p>
+                                        <p>\(data.email)</p>
+                                        <p><strong>Name</strong></p>
+                                        <p>\(data.name)</p>
+                                        <p><strong>Message</strong></p>
+                                        <p>\(data.message)</p>
+                                        """)
+        
+        return try req.mail.send(mail).map(to: Response.self, { response in
+            return req.redirect(to: "/email_confirmation")
+        })
+    }
+    
+    func emailConfirmationViewHandler(req: Request) throws -> Future<View> {
+        return try req.view().render("emailConfirmation")
     }
     
     //MARK:- Admin Blogs
@@ -256,4 +301,17 @@ struct ErrorContent: Content {
 
 struct TagsContent: Encodable {
     let tags: Future<[Tag]>
+}
+
+struct EmailContent: Content, Validatable, Reflectable {
+    let email: String
+    let name: String
+    let subject: String
+    let message: String
+    
+    static func validations() throws -> Validations<EmailContent> {
+        var validations = Validations(EmailContent.self)
+        try validations.add(\.email, .email)
+        return validations
+    }
 }
