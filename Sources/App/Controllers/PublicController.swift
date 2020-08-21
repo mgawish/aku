@@ -11,6 +11,7 @@ import Crypto
 import Fluent
 import Authentication
 import MailCore
+import GoogleAnalyticsProvider
 
 class PublicController: RouteCollection {
     func boot(router: Router) throws {
@@ -98,6 +99,9 @@ class PublicController: RouteCollection {
         } catch {
             return req.future(req.redirect(to: "/contact?error=\(error.localizedDescription.urlEndcoded())"))
         }
+        
+        let gac = try req.make(GoogleAnalyticsClient.self)
+        gac.send(hit: .event(category: "Contact", action: "Send Email"))
         
         let mail = Mailer.Message(from: Environment.get("FROM_EMAIL") ?? "",
                                   to: Environment.get("TO_EMAIL") ?? "",
