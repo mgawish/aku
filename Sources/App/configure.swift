@@ -6,22 +6,18 @@ import GoogleAnalyticsProvider
 
 /// Called before your application initializes.
 public func configure(_ config: inout Config, _ env: inout Environment, _ services: inout Services) throws {
-    // Register providers first
     try services.register(FluentPostgreSQLProvider())
 
-    // Register routes to the router
     let router = EngineRouter.default()
     try routes(router)
     services.register(router, as: Router.self)
 
-    // Register middleware
     var middlewares = MiddlewareConfig()
     middlewares.use(ErrorMiddleware.self)
     middlewares.use(FileMiddleware.self)
     middlewares.use(SessionsMiddleware.self)
     services.register(middlewares)
 
-    // Configure DB
     let databaseConfig: PostgreSQLDatabaseConfig
     if let url = Environment.get("DATABASE_URL") {
         databaseConfig = PostgreSQLDatabaseConfig(url: url)!
@@ -39,13 +35,11 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
                                                   password: "password")
     }
 
-    // Register the configured SQLite database to the database config.
     let database = PostgreSQLDatabase(config: databaseConfig)
     var databases = DatabasesConfig()
     databases.add(database: database, as: .psql)
     services.register(databases)
 
-    // Configure migrations
     var migrations = MigrationConfig()
     migrations.add(model: User.self, database: DatabaseIdentifier<User.Database>.psql)
     migrations.add(model: Blog.self, database: DatabaseIdentifier<Blog.Database>.psql)
@@ -79,5 +73,4 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
         services.register(config)
         try services.register(GoogleAnalyticsProvider())
     }
-    
 }
