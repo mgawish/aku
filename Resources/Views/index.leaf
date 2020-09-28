@@ -112,5 +112,13 @@
     </div>
   </div>
 
+  <div id="footer-section" class="container">
+    <p class="text-white">Get in touch</p>
+    <div>
+      <img src="images/linkedin-sm.svg">
+      <img src="images/github-sm.svg">
+    </div>
+  </div>
+
 }
 #embed("base")

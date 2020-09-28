@@ -243,3 +243,9 @@ nav a:hover {
     text-align: center;
   }
 }
+
+/* Footer */
+#footer-section {
+  padding: 32px;
+  text-align: right;
+}
