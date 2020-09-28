@@ -22,7 +22,6 @@ p {
   font-size: 24px;
 }
 
-
 /* Layout */
 .container {
   padding-top: 16px;
@@ -31,20 +30,35 @@ p {
 
 /* Common */
 
-.underline {
-  height: 7px;
-  width: 25%;
-  background-color: var(--yellow);
-  border-radius: 4px;
-}
-
 .dark-bg {
   background-color: var(--bg-color)
 }
 
+/* .section-header {
+  padding: 0px 0;
+} */
+
+.section {
+  padding: 64px 0;
+}
+
 .section-header {
+  padding-bottom: 64px;
+
+}
+
+.section-header div {
   font-size: 60px;
   font-weight: bolder;
+  text-align: center;
+}
+
+.underline {
+  height: 7px;
+  width: 170px;
+  background-color: var(--yellow);
+  border-radius: 4px;
+  margin: 0 auto;
 }
 
 .btn-solid {
@@ -159,18 +173,23 @@ nav a:hover {
 
 
 /* About Me */
-#about-me-section {
+/* #about-me-section {
   padding-top: 120px;
   padding-bottom: 120px;
 }
+
+#about-me-section-header {
+  font-size: 60px;
+  font-weight: bolder;
+} */
 
 #about-me-dot-image {
   display: block;
 }
 
-#about-me-section p {
+/* #about-me-section p {
   font-weight: 100;
-}
+} */
 
 @media only screen and (max-width: 768px) {
   #about-me-section {

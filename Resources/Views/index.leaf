@@ -2,7 +2,7 @@
   <!-- Header  -->
   <div>
     <img src="images/header-bg.svg" class="bg-image">
-    <div class="container section">
+    <div class="container">
       <div class="row align-items-center">
         <div class="col-md-6 order-2 order-md-1">
           <p class="text-white header-text-1">Hello, I am</p>
@@ -15,16 +15,17 @@
   </div>
   <!-- About Me -->
   <div class="bg-white">
-    <div class="container" id="about-me-section">
+    <div class="container section" id="about-me-section">
+      <div class="section-header">
+        <div>
+          About Me
+          <div class="underline"></div>
+        </div>
+      </div>
       <div class="row">
         <img class="col-md-4" src="images/about-dot-image.svg" id="about-me-dot-image">
         <div class="col-md-1"></div>
         <div class="col-md-7">
-          <div class="section-header">
-            About Me
-            <div class="underline"></div>
-          </div>
-          <br>
           <p>
             Hi! I am Gawish, a software engineer with a combined 7 years of experience in mobile app development and product management. I have spent my entire career working in startups because I love building products from the ground up and working closely with user and stakeholders.
           </p>
@@ -38,6 +39,17 @@
           </div>
         </div>
 
+      </div>
+    </div>
+  </div>
+  <!-- Latest Work -->
+  <div>
+    <div class="container section" id="latest-work-section">
+      <div class="section-header text-white">
+        <div>
+          Latest Work
+          <div class="underline"></div>
+        </div>
       </div>
     </div>
   </div>
