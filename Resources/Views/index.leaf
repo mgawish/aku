@@ -1,6 +1,6 @@
 #set("content") {
-  <!-- Header  -->
-  <div>
+  <!-- Home  -->
+  <div id="home-section">
     <img src="images/header-bg.svg" class="bg-image">
     <div class="container">
       <div class="row align-items-center">
@@ -14,8 +14,8 @@
     </div>
   </div>
   <!-- About Me -->
-  <div class="bg-white">
-    <div class="container section" id="about-me-section">
+  <div class="bg-white" id="about-me-section">
+    <div class="container section">
       <div class="section-header">
         <div>
           About Me
@@ -43,7 +43,7 @@
     </div>
   </div>
   <!-- Latest Work -->
-  <div>
+  <div id="apps-section">
     <div class="container section" id="latest-work-section">
       <div class="section-header text-white">
         <div>
@@ -78,7 +78,7 @@
     </div>
   </div>
   <!-- Contact -->
-  <div class="bg-white">
+  <div class="bg-white" id="contact-section">
     <div class="container section" id="latest-work-section">
       <div class="section-header">
         <div>
@@ -111,7 +111,6 @@
        </form>
     </div>
   </div>
-
   <div id="footer-section" class="container">
     <p class="text-white">Get in touch</p>
     <div>
@@ -119,6 +118,5 @@
       <img src="images/github-sm.svg">
     </div>
   </div>
-
 }
 #embed("base")

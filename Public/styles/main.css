@@ -132,8 +132,11 @@ nav a:hover {
   visibility: visible;
 }
 
-/* Header */
+/* Home */
 
+/* #home-section {
+  position: absolute;
+} */
 .bg-image {
   position: absolute;
   width: 100%;

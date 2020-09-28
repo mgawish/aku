@@ -1,26 +1,19 @@
-// $( document ).ready(function() {
-//   document.getElementsByClassName("ql-editor")[0].innerHTML = document.getElementById("content").value
-// });
-//
-// var quill = new Quill('.editorContainer', {
-//   modules: {
-//     toolbar: [
-//       [{ header: [1, 2, false] }],
-//       ['bold', 'italic', 'underline'],
-//       ['image', 'code-block']
-//     ]
-//   },
-//   placeholder: 'Compose an epic...',
-//   theme: 'snow'  // or 'bubble'
-// });
-//
-// function quillGetHTML(inputDelta) {
-//     var tempCont = document.createElement("div");
-//     (new Quill(tempCont)).setContents(inputDelta);
-//     return tempCont.getElementsByClassName("editorContainer")[0].innerHTML;
-// }
-//
-// quill.on('text-change', function(delta, oldDelta, source) {
-//   var content = document.getElementsByClassName("ql-editor")[0].innerHTML
-//   document.getElementById("content").value = content
-// });
+function scrollToHome() {
+  var elmnt = document.getElementById("home-section");
+  elmnt.scrollIntoView();
+}
+
+function scrollToAboutMe() {
+  var elmnt = document.getElementById("about-me-section");
+  elmnt.scrollIntoView();
+}
+
+function scrollToApp() {
+  var elmnt = document.getElementById("apps-section");
+  elmnt.scrollIntoView();
+}
+
+function scrollToContact() {
+  var elmnt = document.getElementById("contact-section");
+  elmnt.scrollIntoView();
+}
