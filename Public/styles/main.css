@@ -27,6 +27,11 @@ a:hover, a:visited, a:link, a:active {
     text-decoration: none;
 }
 
+input {
+  border-color: var(--yellow);
+  color: green;
+}
+
 
 /* Layout */
 .container {
@@ -209,13 +214,12 @@ nav a:hover {
 
 /* Blogs  */
 
-.blogs {
+/* .blogs {
   padding: 0 16px;
-}
+} */
 
 .blogs img {
-  width: 360px;
-  height: 360px;
+  height: 300px;
 }
 
 .blog-text {
