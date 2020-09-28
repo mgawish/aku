@@ -3,6 +3,7 @@
 :root {
   --bg-color: #514949;
   --yellow: #ECBE1C;
+  --grey: #C4C4C4;
 }
 
 body {
@@ -21,6 +22,11 @@ h2 {
 p {
   font-size: 24px;
 }
+
+a:hover, a:visited, a:link, a:active {
+    text-decoration: none;
+}
+
 
 /* Layout */
 .container {
@@ -198,5 +204,38 @@ nav a:hover {
 
   #about-me-dot-image {
     display: none;
+  }
+}
+
+/* Blogs  */
+
+.blogs {
+  padding: 0 16px;
+}
+
+.blogs img {
+  width: 360px;
+  height: 360px;
+}
+
+.blog-text {
+  padding: 16px 0 24px 0;
+}
+
+.blog-name {
+  font-size: 24px;
+  font-weight: bolder;
+  color: white;
+}
+
+.blog-tags {
+  font-size: 18px;
+  font-weight: normal;
+  color: var(--grey);
+}
+
+@media only screen and (max-width: 768px) {
+  .blogs {
+    text-align: center;
   }
 }

@@ -51,6 +51,30 @@
           <div class="underline"></div>
         </div>
       </div>
+      <div class="row">
+        #for(blog in blogs) {
+          <div class='col-md-4'>
+            <div class="blogs rounded">
+              <a href="/apps/#(blog.slug)">
+                <img class="rounded" src=#if(blog.thumbUrl != ""){#(blog.thumbUrl)} else{"/images/github-thumb.svg"}>
+                <div class="blog-text">
+                  <span class="blog-name">#(blog.name)</span>
+                  &nbsp;
+                  <span class="blog-tags">
+                    #for(tag in blog.tags) {
+                      #if(isLast) {
+                        #(tag)
+                      } else {
+                        #(tag),
+                      }
+                    }
+                  </span>
+                </div>
+              </a>
+            </div>
+          </div>
+        }
+      </div>
     </div>
   </div>
 }
