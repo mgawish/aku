@@ -1,67 +1,183 @@
-body {
-  font-family: 'Roboto', sans-serif;
+/* Main */
+
+:root {
+  --bg-color: #514949;
+  --yellow: #ECBE1C;
 }
 
-nav {
-  background-color: black;q
+body {
+  font-family: 'Work Sans';
 }
 
 select {
   width: 100%;
 }
 
+h2 {
+  font-size: 80px;
+  font-weight: bold;
+}
+
+p {
+  font-size: 24px;
+}
+
+
+/* Layout */
 .container {
-  padding: 16px;
+  padding-top: 16px;
+  padding-bottom: 16px;
 }
 
-.app-link-icons {
-  height: 40px;
+/* Common */
+
+.underline {
+  height: 7px;
+  width: 25%;
+  background-color: var(--yellow);
+  border-radius: 4px;
 }
 
-.card {
-  margin-bottom: 0px;
+.dark-bg {
+  background-color: var(--bg-color)
 }
 
-.card p {
-  margin-bottom: 0;
+.section-header {
+  font-size: 60px;
+  font-weight: bolder;
 }
 
-.card a, a:hover{
-  color: inherit;
+.btn-solid {
+  background-color: var(--yellow);
+  font-size: 20px;
+  font-weight: 500;
+  padding: 12px 16px;
+}
+
+.btn-outline {
+  border-color: var(--yellow);
+  font-size: 20px;
+  font-weight: 500;
+  padding: 12px 16px;
+}
+/* Navigation */
+
+nav {
+  background-color: var(--bg-color);
+}
+
+nav li {
+  color: white;
+  font-size: 18;
+  font-weight: 500;
+  padding: 0 10px 0 10px;
+}
+
+nav li:hover {
+  color: var(--yellow);
+}
+
+nav .active {
+  color: var(--yellow);
+}
+
+nav a {
   text-decoration: none;
+  color: inherit;
 }
 
-.small-form {
-  max-width: 400px;
+nav a:hover {
+  text-decoration: none;
+  color: inherit;
 }
 
-#editor-container {
-  height: 100px;
-  margin-bottom: 16px;
+.navbar-brand {
+  color: var(--yellow);
+  font-weight: bolder;
 }
 
-.hidden {
+.nav-underline {
+  height: 3px;
+  width: 50%;
+  background-color: var(--yellow);
   visibility: hidden;
 }
 
-.img-main {
-  max-width: 100%
+.active .nav-underline {
+  visibility: visible;
 }
 
-.title-container {
-  height: 170px;
-  /* margin-bottom: 32px; */
+/* Header */
+
+.bg-image {
+  position: absolute;
+  width: 100%;
 }
 
-.title-container img {
-  height: 100%;
+.header-text-1 {
+  font-size:36px;
+  font-weight: 500;
 }
 
-.sub-text {
-  font-size: 12px;
-  color: gray;
+.header-text-2 {
+  font-size: 80px;
+  font-weight: 900;
+  line-height: 80px;
+  padding-bottom: 12px;
 }
 
-.section {
-  margin-bottom: 16px;
+.header-text-3 {
+  font-weight: lighter;
+  max-width: 412px;
+}
+
+.profile_pic {
+  width: 100%;
+}
+
+.banner {
+  font-size: 24px;
+  text-align: center;
+  background-color: var(--yellow);
+  padding: 8px;
+}
+
+@media only screen and (max-width: 768px) {
+  .header-text-1 {
+    font-size:25px;
+  }
+
+  .header-text-2 {
+    font-size: 50px;
+    font-weight: 900;
+  }
+
+  .header-text-3 {
+    max-width: 100%;
+  }
+}
+
+
+/* About Me */
+#about-me-section {
+  padding-top: 120px;
+  padding-bottom: 120px;
+}
+
+#about-me-dot-image {
+  display: block;
+}
+
+#about-me-section p {
+  font-weight: 100;
+}
+
+@media only screen and (max-width: 768px) {
+  #about-me-section {
+    padding: 32px;
+  }
+
+  #about-me-dot-image {
+    display: none;
+  }
 }

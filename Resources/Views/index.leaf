@@ -1,61 +1,44 @@
 #set("content") {
-  <div class="container bg-white">
-    #if(tagName == nil) {
-      <div class="title-container section">
-        <img class="rounded img-thumbnail float-left mr-3" src="images/me.jpg">
-        <div>
-          <h2>Mohamed Gawish</h2>
-          <h5>iOS developer</h5>
+  <!-- Header  -->
+  <div>
+    <img src="images/header-bg.svg" class="bg-image">
+    <div class="container section">
+      <div class="row align-items-center">
+        <div class="col-md-6 order-2 order-md-1">
+          <p class="text-white header-text-1">Hello, I am</p>
+          <p class="text-white header-text-2" >Mohamed Gawish</p>
+          <p class="rounded banner header-text-3"><span>Software Engineer<span></p>
+        </div>
+        <img src="images/me.svg" class="profile_pic col-md-6 order-1 order-md-2">
+      </div>
+    </div>
+  </div>
+  <!-- About Me -->
+  <div class="bg-white">
+    <div class="container" id="about-me-section">
+      <div class="row">
+        <img class="col-md-4" src="images/about-dot-image.svg" id="about-me-dot-image">
+        <div class="col-md-1"></div>
+        <div class="col-md-7">
+          <div class="section-header">
+            About Me
+            <div class="underline"></div>
+          </div>
+          <br>
+          <p>
+            Hi! I am Gawish, a software engineer with a combined 7 years of experience in mobile app development and product management. I have spent my entire career working in startups because I love building products from the ground up and working closely with user and stakeholders.
+          </p>
+          <p>
+            My speciality is building iOS apps using Swift. I had the chance to working on plenty of enterprise level apps, including Tajawal and Eat App Manager iPhone. I also like to work personal apps using SwiftUI and build web apps using Vapor and Bootstrap (like my portfolio mentioned below). I also have some experience building Android apps using Kotlin.
+          </p>
           <div>
-            <a href="https://bit.ly/325eWEM" target="_blank">Linkedin</a> &#8226;
-            <a href="https://github.com/mgawish" target="_blank">Github</a> &#8226;
-            <a href="https://aku.s3.amazonaws.com/MohamedGawishResume.pdf" target="_blank">Resume</a>
+            <button class="btn btn-solid">My Work</button>
+            &nbsp;
+            <button class="btn btn-outline">Download CV</button>
           </div>
         </div>
+
       </div>
-      <div class="section">
-        <p>
-          Hi! I am Gawish, a software engineer specialized in building iOS apps using Swift.
-          I also have some experience building Android apps using Kotlin.
-          Here are some of the apps I have worked on through out the years.
-        </p>
-      </div>
-    }
-    #if(tagName) {
-      <div class="section">
-        <h2>#(tagName) apps</h2>
-        <a href="/">Reset Filter</a>
-      </div>
-    }
-    <div class="row">
-      #for(blog in blogs) {
-        <div class='col-md-3'>
-          <div class="section">
-            <div class="card text-center">
-              <a href="/apps/#(blog.slug)">
-                #if(blog.thumbUrl != "") {
-                  <img class="card-img-top" src=#(blog.thumbUrl) >
-                } else {
-                  <img class="card-img-top" src="/images/github-thumb.svg" >
-                }
-                <div class="card-body">
-                  <p>#(blog.name)</p>
-                  <small>#(blog.company)</small><br/>
-                  <small class="text-secondary">
-                    #for(tag in blog.tags) {
-                      #if(isLast) {
-                        #(tag)
-                      } else {
-                        #(tag),
-                      }
-                    }
-                  </small>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-      }
     </div>
   </div>
 }
