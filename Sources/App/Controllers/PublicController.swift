@@ -60,7 +60,8 @@ class PublicController: RouteCollection {
             .all()
             .flatMap(to: View.self, { blogs in
                 let blogs = try blogs.compactMap({ try $0.convertToData(req: req) }).flatten(on: req)
-                return try req.view().render("index", BlogsContent(blogs: blogs))
+                let tags = Tag.query(on: req).all()
+                return try req.view().render("index", BlogsContent(allTags: tags, blogs: blogs))
             })
     }
     
@@ -261,6 +262,7 @@ class PublicController: RouteCollection {
 
 struct BlogsContent: Encodable {
     var tagName: String? = nil
+    var allTags: Future<[Tag]>? = nil
     let blogs: Future<[Blog.Data]>
 }
 

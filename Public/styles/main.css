@@ -23,7 +23,7 @@ p {
   font-size: 24px;
 }
 
-a:hover, a:visited, a:link, a:active {
+a a:hover, a:visited, a:link, a:active {
     text-decoration: none;
 }
 
@@ -85,6 +85,7 @@ input {
   font-weight: 500;
   padding: 12px 16px;
 }
+
 /* Navigation */
 
 nav {
@@ -239,6 +240,24 @@ nav a:hover {
   font-size: 18px;
   font-weight: normal;
   color: var(--grey);
+}
+
+#tags-section {
+  font-size: 24px;
+  text-align: center;
+  padding: 60px 0;
+}
+
+#tags-section a {
+  color: white;
+}
+
+#tags-section .active {
+  color: var(--yellow);
+}
+
+.hidden-app {
+  display: none;
 }
 
 @media only screen and (max-width: 768px) {

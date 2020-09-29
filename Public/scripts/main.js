@@ -1,19 +1,28 @@
-function scrollToHome() {
-  var elmnt = document.getElementById("home-section");
-  elmnt.scrollIntoView();
+function scrollToSection(sectionName) {
+  var element = document.getElementById(sectionName);
+  element.scrollIntoView();
 }
 
-function scrollToAboutMe() {
-  var elmnt = document.getElementById("about-me-section");
-  elmnt.scrollIntoView();
-}
+function filterByTag(tagName) {
+  var tagContiner = document.getElementById("tags-section")
+  var children = tagContiner.children;
+  for (var i=0; i<children.length; i++) {
+    var tab = children[i]
+    if (tab.id == tagName + "-filter") {
+      tab.classList.add("active")
+    } else {
+      tab.classList.remove("active")
+    }
+  }
 
-function scrollToApp() {
-  var elmnt = document.getElementById("apps-section");
-  elmnt.scrollIntoView();
-}
-
-function scrollToContact() {
-  var elmnt = document.getElementById("contact-section");
-  elmnt.scrollIntoView();
+  var apps = document.getElementById("apps-section").children
+  for (var i=0; i<apps.length; i++) {
+    var app = apps[i]
+    var tags = app.getAttribute("data-tags")
+    if (tags.includes(tagName) || tagName == "all") {
+      app.classList.remove("hidden-app")
+    } else {
+      app.classList.add("hidden-app")
+    }
+  }
 }

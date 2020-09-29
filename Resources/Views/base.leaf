@@ -27,25 +27,25 @@
     <div class="navbar-brand col-md-1">MG.</div>
     <ul class="navbar-nav justify-content-center col-md-10">
       <li class="nav-item active">
-        <a class="nav-link" href="javascript:test1()">
+        <a class="nav-link" href="javascript:scrollToSection('home-section')">
           Home
           <div class="nav-underline"></div>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="javascript:scrollToAboutMe()">
+        <a class="nav-link" href="javascript:scrollToSection('about-me-section')">
           About Me
           <div class="nav-underline"></div>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="javascript:scrollToApp()">
+        <a class="nav-link" href="javascript:scrollToSection('work-section')">
           Apps
           <div class="nav-underline"></div>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="javascript:scrollToContact()">
+        <a class="nav-link" href="javascript:scrollToSection('contact-section')">
           Contact
           <div class="nav-underline"></div>
         </a>

@@ -43,7 +43,7 @@
     </div>
   </div>
   <!-- Latest Work -->
-  <div id="apps-section">
+  <div id="work-section">
     <div class="container section" id="latest-work-section">
       <div class="section-header text-white">
         <div>
@@ -51,27 +51,35 @@
           <div class="underline"></div>
         </div>
       </div>
-      <div class="row">
+      <div id="tags-section">
+        <a href="javascript:filterByTag('all')" class="active" id="all-filter">All</a>
+        &nbsp;
+        #for(tag in allTags) {
+          <a href="javascript:filterByTag('#(tag.name)')" id="#(tag.name)-filter">#(tag.name)</a>
+          &nbsp;
+        }
+      </div>
+      <div class="row" id="apps-section">
         #for(blog in blogs) {
-          <div class='col-md-4'>
-            <div class="blogs rounded">
-              <a href="/apps/#(blog.slug)">
-                <img class="rounded" src=#if(blog.thumbUrl != ""){#(blog.thumbUrl)} else{"/images/github-thumb.svg"}>
-                <div class="blog-text">
-                  <span class="blog-name">#(blog.name)</span>
-                  &nbsp;
-                  <span class="blog-tags">
-                    #for(tag in blog.tags) {
-                      #if(isLast) {
-                        #(tag)
-                      } else {
-                        #(tag),
-                      }
+          <div
+          class="blogs rounded col-md-4"
+          data-tags="#for(tag in blog.tags) {#(tag)-}">
+            <a href="/apps/#(blog.slug)">
+              <img class="rounded" src=#if(blog.thumbUrl != ""){#(blog.thumbUrl)} else{"/images/github-thumb.svg"}>
+              <div class="blog-text">
+                <span class="blog-name">#(blog.name)</span>
+                &nbsp;
+                <span class="blog-tags">
+                  #for(tag in blog.tags) {
+                    #if(isLast) {
+                      #(tag)
+                    } else {
+                      #(tag),
                     }
-                  </span>
-                </div>
-              </a>
-            </div>
+                  }
+                </span>
+              </div>
+            </a>
           </div>
         }
       </div>
