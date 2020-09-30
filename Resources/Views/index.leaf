@@ -94,29 +94,31 @@
           <div class="underline"></div>
         </div>
       </div>
-      <form method="post" id="contact-form" action="/send_email">
+      <form id="contact-form" onsubmit="sendEmail();return false;">
         <div class='form-group row'>
           <div class="col-sm-4">
             <label for='name'>NAME:</label>
-            <input type='url' class='form-control' id='name' name='name'>
+            <input type='text' class='form-control' id='contact-name' required>
           </div>
           <div class="col-sm-4">
             <label for='email'>EMAIL:</label>
-            <input type='url' class='form-control' id='email' name='email'>
+            <input type='email' class='form-control' id='contact-email' required>
           </div>
           <div class="col-sm-4">
-            <label for='name'>SUBJECT:</label>
-            <input type='url' class='form-control' id='subject' name='subject'>
+            <label for='subject'>SUBJECT:</label>
+            <input type='text' class='form-control' id='contact-subject' required>
           </div>
         </div>
         <br>
         <div class="form-group">
           <label for="message">YOUR MESSAGE</label> <br>
-          <textarea class="form-control" id="message" name="message" form="contact-form"></textarea>
+          <textarea class="form-control" id="contact-message" form="contact-form" required></textarea>
         </div>
         <br>
-        <button class="btn btn-solid">Send message</button>
-       </form>
+        <button id="contact-submit-button" type="submit" class="btn btn-solid">Send message</button>
+        <br><br>
+        <small id="contact-form-response"></small>
+      </form>
     </div>
   </div>
   <div id="footer-section" class="container">
@@ -126,5 +128,6 @@
       <img src="images/github-sm.svg">
     </div>
   </div>
+  <script src="scripts/index.js"></script>
 }
 #embed("base")

@@ -94,15 +94,16 @@ class PublicController: RouteCollection {
         return try req.view().render("contact", ErrorContent(error: error))
     }
     
-    func sendEmailHandler(req: Request, data: EmailContent) throws -> Future<Response> {
+    func sendEmailHandler(req: Request, data: EmailContent) throws -> Future<String> {
         do {
             try data.validate()
         } catch {
-            return req.future(req.redirect(to: "/contact?error=\(error.localizedDescription.urlEndcoded())"))
+            return req.future("The form information is invalid.")
         }
         
-        let gac = try req.make(GoogleAnalyticsClient.self)
-        gac.send(hit: .event(category: "Contact", action: "Send Email"))
+        if let gac = try? req.make(GoogleAnalyticsClient.self) {
+            gac.send(hit: .event(category: "Contact", action: "Send Email"))
+        }
         
         let mail = Mailer.Message(from: Environment.get("FROM_EMAIL") ?? "",
                                   to: Environment.get("TO_EMAIL") ?? "",
@@ -117,8 +118,8 @@ class PublicController: RouteCollection {
                                         <p>\(data.message)</p>
                                         """)
         
-        return try req.mail.send(mail).map(to: Response.self, { response in
-            return req.redirect(to: "/email_confirmation")
+        return try req.mail.send(mail).map(to: String.self, { response in
+            return "Thank you for reaching out. I will respond to you soon."
         })
     }
     
