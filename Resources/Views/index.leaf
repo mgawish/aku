@@ -15,7 +15,7 @@
   </div>
   <!-- About Me -->
   <div class="bg-white" id="about-me-section">
-    <div class="container section">
+    <div class="container">
       <div class="section-header">
         <div>
           About Me
@@ -38,13 +38,12 @@
             <button class="btn btn-outline">Download CV</button>
           </div>
         </div>
-
       </div>
     </div>
   </div>
   <!-- Latest Work -->
   <div id="work-section">
-    <div class="container section" id="latest-work-section">
+    <div class="container" id="latest-work-section">
       <div class="section-header text-white">
         <div>
           Latest Work
@@ -87,7 +86,7 @@
   </div>
   <!-- Contact -->
   <div class="bg-white" id="contact-section">
-    <div class="container section" id="latest-work-section">
+    <div class="container" id="latest-work-section">
       <div class="section-header">
         <div>
           Contact Me
@@ -97,26 +96,24 @@
       <form id="contact-form" onsubmit="sendEmail();return false;">
         <div class='form-group row'>
           <div class="col-sm-4">
-            <label for='name'>NAME:</label>
+            <label for='name'>NAME</label>
             <input type='text' class='form-control' id='contact-name' required>
           </div>
           <div class="col-sm-4">
-            <label for='email'>EMAIL:</label>
+            <label for='email'>EMAIL</label>
             <input type='email' class='form-control' id='contact-email' required>
           </div>
           <div class="col-sm-4">
-            <label for='subject'>SUBJECT:</label>
+            <label for='subject'>SUBJECT</label>
             <input type='text' class='form-control' id='contact-subject' required>
           </div>
         </div>
-        <br>
         <div class="form-group">
           <label for="message">YOUR MESSAGE</label> <br>
           <textarea class="form-control" id="contact-message" form="contact-form" required></textarea>
         </div>
-        <br>
         <button id="contact-submit-button" type="submit" class="btn btn-solid">Send message</button>
-        <br><br>
+        <br>
         <small id="contact-form-response"></small>
       </form>
     </div>
