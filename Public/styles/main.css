@@ -117,10 +117,6 @@ nav li:hover {
   color: var(--yellow);
 }
 
-nav .active {
-  color: var(--yellow);
-}
-
 nav a {
   text-decoration: none;
   color: inherit;
@@ -136,7 +132,7 @@ nav a:hover {
   font-weight: bolder;
 }
 
-.nav-underline {
+/* .nav-underline {
   height: 3px;
   width: 50%;
   background-color: var(--yellow);
@@ -145,7 +141,26 @@ nav a:hover {
 
 .active .nav-underline {
   visibility: visible;
+} */
+
+@media only screen and (max-width: 768px) {
+  #navbarSupportedContent1 {
+    position: absolute;
+    top: 60px;
+    z-index: 1000;
+    background-color: var(--dark);
+    width: 100px;
+    right: 0px;
+  }
 }
+/* #navbarSupportedContent1 {
+  position: absolute;
+  top: 60px;
+  z-index: 1000;
+  background-color: var(--dark);
+  width: 100px;
+  right: 0px;
+} */
 
 /* Home */
 
