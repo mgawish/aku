@@ -59,8 +59,12 @@
   <div id="footer-section" class="container dark-bg">
     <p class="text-white">Get in touch</p>
     <div>
-      <img src="/images/linkedin-sm.svg">
-      <img src="/images/github-sm.svg">
+      <a href="https://www.linkedin.com/in/mohamed-gawish-13968332" target="_blank">
+        <img src="/images/linkedin-sm.svg">
+      </a>
+      <a href="https://github.com/mgawish" target="_blank">
+        <img src="/images/github-sm.svg">
+      </a>
     </div>
   </div>
 </body>

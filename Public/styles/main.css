@@ -315,6 +315,17 @@ nav a:hover {
   font-weight: lighter;
 }
 
+@media only screen and (max-width: 768px) {
+  .app-details {
+    font-size: 14px;
+    margin: 32px 0 0 0;
+  }
+
+  .app-details img {
+    width: 80px;
+  }
+}
+
 .app-content-image {
   width: 100%;
 }
