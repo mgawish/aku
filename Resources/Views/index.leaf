@@ -15,7 +15,7 @@
   </div>
   <!-- About Me -->
   <div class="bg-white" id="about-me-section">
-    <div class="container">
+    <div class="container section">
       <div class="section-header">
         <div>
           About Me
@@ -43,7 +43,7 @@
   </div>
   <!-- Latest Work -->
   <div id="work-section">
-    <div class="container" id="latest-work-section">
+    <div class="container section" id="latest-work-section">
       <div class="section-header text-white">
         <div>
           Latest Work
@@ -86,7 +86,7 @@
   </div>
   <!-- Contact -->
   <div class="bg-white" id="contact-section">
-    <div class="container" id="latest-work-section">
+    <div class="container section" id="latest-work-section">
       <div class="section-header">
         <div>
           Contact Me

@@ -38,7 +38,7 @@ a a:hover, a:visited, a:link, a:active {
 }
 
 .section-header {
-  padding: 64px 0;
+  padding: 0 0 64px 0;
   font-size: 60px;
   font-weight: bold;
   text-align: center;
@@ -54,11 +54,11 @@ a a:hover, a:visited, a:link, a:active {
   }
 
   .section {
-    padding: 16px 0px;
+    padding: 32px 0px;
   }
 
   .section-header {
-    padding: 64px 0;
+    padding: 0 0 32px 0;
     font-size: 50px;
     font-weight: bold;
     text-align: center;
@@ -69,18 +69,6 @@ a a:hover, a:visited, a:link, a:active {
   background-color: var(--bg-color)
 }
 
-
-
-
-/* .section-header {
-  padding: 64px 0;
-} */
-
-/* .section-header div {
-  font-size: 60px;
-  font-weight: bolder;
-  text-align: center;
-} */
 
 .underline {
   height: 7px;
@@ -272,6 +260,9 @@ nav a:hover {
   text-align: right;
 }
 
+#contact-form {
+  padding: 16px;
+}
 /* App Page */
 
 .app-header {
