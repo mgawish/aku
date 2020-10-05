@@ -1,53 +1,77 @@
 #set("content") {
-  <div class="container bg-white">
-    <div class="title-container section">
-      #if(thumbUrl != "") {
-        <img class="rounded img-thumbnail float-left mr-3" src=#(thumbUrl)>
-      } else {
-        <img class="rounded img-thumbnail float-left mr-3" src="/images/github-thumb.svg" >
-      }
-      <h2>#(name)</h2>
-      <h5>#(company)</h5>
-      <p class="section text-secondary">
-        #for(tag in tags) {
-          #if(isLast) {
-            <a href="/#(tag)">#(tag)</a>
-          } else {
-            <a href="/#(tag)">#(tag)</a>,
-          }
-        }
-      </p>
-    </div>
-
-    <div>
-      <div class="row">
-        <div class="col-md-6 content">
-          <div class="section">
-            #if(appStoreUrl != "") {
-              <a href="#(appStoreUrl)" target="_blank">
-                <img class="app-link-icons" src="/images/app-store.svg" />
-              </a>
-            }
-            #if(googlePlayUrl != "") {
-              <a href="#(googlePlayUrl)" target="_blank">
-                <img class="app-link-icons" src="/images/google-play.svg" />
-              </a>
-            }
-            #if(githubUrl != "") {
-              <a href="#(githubUrl)" target="_blank">
-                <img class="app-link-icons" src="/images/github.svg" />
-              </a>
-            }
+    <div id="app-header-section" class="section-header">
+      <div class="container">
+        <div class="app-header text-white">
+          <div>
+            #(name)
+            <div class="underline"></div>
           </div>
-          <div class="section">
-            #raw(content)
-          </div>
-        </div>
-        <div class="col-md-6 content">
-          <img src=#(imageUrl) class="img-main">
         </div>
       </div>
     </div>
-  </div>
+    <div id="app-body-section" class="bg-white">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="image-container">
+              <div class="image-container-placeholder rounded"></div>
+              #if(thumbUrl != "") {
+                <img class="image-container-main rounded" src=#(thumbUrl)>
+              } else {
+                <img class="image-container-main rounded" src="/images/github-thumb.svg" >
+              }
+            </div>
+          </div>
+          <div class="col-md-8">
+            <table class="app-details table table-borderless">
+              <thead>
+                <th>Company</th>
+                <th>Technology</th>
+                <th>Download<th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>#(company)</td>
+                  <td>
+                    #for(tag in tags) {
+                      #if(isLast) {
+                        #(tag)
+                      } else {
+                        #(tag),
+                      }
+                    }
+                  </td>
+                  <td>
+                    #if(appStoreUrl != "") {
+                      <a href="#(appStoreUrl)" target="_blank">
+                        <img class="app-link-icons" src="/images/app-store.svg" />
+                      </a>
+                    }
+                    #if(googlePlayUrl != "") {
+                      <a href="#(googlePlayUrl)" target="_blank">
+                        <img class="app-link-icons" src="/images/google-play.svg" />
+                      </a>
+                    }
+                    #if(githubUrl != "") {
+                      <a href="#(githubUrl)" target="_blank">
+                        <img class="app-link-icons" src="/images/github.svg" />
+                      </a>
+                    }
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row section">
+          <div class="col-md-6">
+            #raw(content)
+          </div>
+          <div class="col-md-6">
+            <img src=#(imageUrl)>
+          </div>
+        </div>
+      </div>
+    </div>
 }
 #embed("base")

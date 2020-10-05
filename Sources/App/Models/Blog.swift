@@ -139,19 +139,19 @@ extension Blog {
             try self.tags.query(on: req).all(),
             Tag.query(on: req).all(), { tags, allTags in
                 return Blog.Data(id: self.id,
-                                   name: self.name,
-                                   content: self.content,
-                                   company: self.company,
-                                   slug: self.slug,
-                                   imageUrl: self.imageUrl,
-                                   thumbUrl: self.thumbUrl,
-                                   appStoreUrl: self.appStoreUrl,
-                                   googlePlayUrl: self.googlePlayUrl,
-                                   githubUrl: self.githubUrl,
-                                   order: String(self.order),
-                                   isActive: self.isActive ? "checked" : "",
-                                   tags: tags.map({ $0.name }),
-                                   allTags: allTags.map({ $0.name }))
+                                 name: self.name,
+                                 content: self.content,
+                                 company: self.company,
+                                 slug: self.slug,
+                                 imageUrl: self.imageUrl,
+                                 thumbUrl: self.thumbUrl,
+                                 appStoreUrl: self.appStoreUrl,
+                                 googlePlayUrl: self.googlePlayUrl,
+                                 githubUrl: self.githubUrl,
+                                 order: String(self.order),
+                                 isActive: self.isActive ? "checked" : "",
+                                 tags: tags.map({ $0.name }),
+                                 allTags: allTags.map({ $0.name }))
                 
         })
     }

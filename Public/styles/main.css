@@ -27,11 +27,14 @@ a a:hover, a:visited, a:link, a:active {
     text-decoration: none;
 }
 
-
 /* Layout */
 
 .container {
   padding: 16px;
+}
+
+.section {
+  padding: 64px 0px;
 }
 
 .section-header {
@@ -50,6 +53,10 @@ a a:hover, a:visited, a:link, a:active {
     padding: 16px 16px 32px 16px
   }
 
+  .section {
+    padding: 16px 0px;
+  }
+
   .section-header {
     padding: 64px 0;
     font-size: 50px;
@@ -64,9 +71,6 @@ a a:hover, a:visited, a:link, a:active {
 
 
 
-/* .section {
-  padding: 64px 0;
-} */
 
 /* .section-header {
   padding: 64px 0;
@@ -132,17 +136,6 @@ nav a:hover {
   font-weight: bolder;
 }
 
-/* .nav-underline {
-  height: 3px;
-  width: 50%;
-  background-color: var(--yellow);
-  visibility: hidden;
-}
-
-.active .nav-underline {
-  visibility: visible;
-} */
-
 @media only screen and (max-width: 768px) {
   #navbarSupportedContent1 {
     position: absolute;
@@ -153,20 +146,9 @@ nav a:hover {
     right: 0px;
   }
 }
-/* #navbarSupportedContent1 {
-  position: absolute;
-  top: 60px;
-  z-index: 1000;
-  background-color: var(--dark);
-  width: 100px;
-  right: 0px;
-} */
 
 /* Home */
 
-/* #home-section {
-  position: absolute;
-} */
 .bg-image {
   position: absolute;
   width: 100%;
@@ -217,23 +199,10 @@ nav a:hover {
 
 
 /* About Me */
-/* #about-me-section {
-  padding-top: 120px;
-  padding-bottom: 120px;
-}
-
-#about-me-section-header {
-  font-size: 60px;
-  font-weight: bolder;
-} */
 
 #about-me-dot-image {
   display: block;
 }
-
-/* #about-me-section p {
-  font-weight: 100;
-} */
 
 @media only screen and (max-width: 768px) {
   #about-me-dot-image {
@@ -242,10 +211,6 @@ nav a:hover {
 }
 
 /* Blogs  */
-
-/* .blogs {
-  padding: 0 16px;
-} */
 
 .blogs img {
   height: 300px;
@@ -305,4 +270,80 @@ nav a:hover {
 #footer-section {
   padding: 32px;
   text-align: right;
+}
+
+/* App Page */
+
+.app-header {
+  font-size: 60px;
+  color: white;
+  padding: 32px 0;
+  font-weight: bold;
+  text-align: center;
+}
+
+@media only screen and (max-width: 768px) {
+  .app-header {
+    font-size: 50px;
+  }
+}
+
+.app-image {
+  padding: 32px 0;
+  font-size: 60px;
+  width: 320px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.app-image-background {
+  width: 320px;
+  position: absolute;
+  z-index: 1;
+}
+
+#app-content-img {
+  width: 100%;
+}
+
+#app-body-section {
+  font-size: 24px;
+  font-weight: lighter;
+}
+
+.app-details {
+  margin: 40px 0 0 0;
+}
+
+.app-details th {
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.app-details td {
+  font-size: 20px;
+  font-weight: lighter;
+}
+
+
+.image-container {
+  position: relative;
+  padding: 32px;
+}
+
+.image-container-main {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  top: 32px;
+  left: 32px;
+  border: 1px solid var(--yellow);
+}
+
+.image-container-placeholder {
+  position: absolute;
+  z-index: 1;
+  width: 80%;
+  height: 80%;
+  background-color: var(--yellow);
 }
