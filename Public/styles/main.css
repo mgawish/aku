@@ -303,19 +303,21 @@ nav a:hover {
 }
 
 .app-details {
+  font-size: 20px;
   margin: 40px 0 0 0;
 }
 
 .app-details th {
-  font-size: 20px;
   font-weight: 900;
 }
 
 .app-details td {
-  font-size: 20px;
   font-weight: lighter;
 }
 
+.app-content-image {
+  width: 100%;
+}
 
 .image-container {
   position: relative;
