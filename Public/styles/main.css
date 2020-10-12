@@ -302,6 +302,10 @@ nav a:hover {
   font-weight: lighter;
 }
 
+.app-link-icons {
+    max-width: 100px;
+}
+
 .app-details {
   font-size: 20px;
   margin: 40px 0 0 0;
