@@ -25,7 +25,7 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     // Configure DB
     let databaseConfig: PostgreSQLDatabaseConfig
     if let url = Environment.get("DATABASE_URL") {
-        databaseConfig = PostgreSQLDatabaseConfig(url: url)!
+        databaseConfig = PostgreSQLDatabaseConfig(url: url, transport: PostgreSQLConnection.TransportConfig.unverifiedTLS)!
     } else if env == .testing {
         databaseConfig = PostgreSQLDatabaseConfig(hostname: "localhost",
                                                   port: 5433,
@@ -39,6 +39,7 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
                                                   database: "aku",
                                                   password: "password")
     }
+    
 
     // Register the configured SQLite database to the database config.
     let database = PostgreSQLDatabase(config: databaseConfig)
